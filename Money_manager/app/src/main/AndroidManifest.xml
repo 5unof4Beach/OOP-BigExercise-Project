@@ -7,14 +7,9 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:banner="@color/black"
         android:supportsRtl="true"
         android:theme="@style/Theme.MoneyManager">
-        <activity
-            android:name=".IncomeScreen"
-            android:exported="true" />
-        <activity
-            android:name=".ExpenseScreen"
-            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
