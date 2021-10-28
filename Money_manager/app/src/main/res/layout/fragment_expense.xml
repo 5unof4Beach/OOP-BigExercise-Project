@@ -37,7 +37,7 @@
         app:layout_constraintTop_toBottomOf="@id/amount"
         />
     <TextView
-        android:id="@+id/tv_category"
+        android:id="@+id/tv_expense_category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -48,6 +48,82 @@
         app:layout_constraintTop_toBottomOf="@id/et_note" />
 
 
+    <LinearLayout
+        android:id="@+id/ll_category"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/tv_expense_category"
+        >
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <RadioButton
+                    android:id="@+id/rb_houseware"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/radio_button"
+                    android:checked="true"
+                    android:text="Houseware"
+                    >
+                </RadioButton>
+                <RadioButton
+                    android:id="@+id/rb_food"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/radio_button"
+                    android:text="Food"
+                    >
+                </RadioButton>
+                <RadioButton
+                    android:id="@+id/rb_education"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/radio_button"
+                    android:text="Education"
+                    >
+                </RadioButton>
+                <RadioButton
+                    android:id="@+id/rb_technology"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/radio_button"
+                    android:text="Technology"
+                    >
+                </RadioButton>
+                <RadioButton
+                    android:id="@+id/cb_pet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/radio_button"
+                    android:text="Pet"
+                    >
+                </RadioButton>
+
+            </RadioGroup>
+        </ScrollView>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/enter_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:backgroundTint="@color/gray"
+        android:text="Enter"
+        android:textAppearance="?android:textAppearanceMedium"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ll_category"
+        />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 <!--    <RadioGroup-->
 <!--        android:id="@+id/rg_category"-->
 <!--        android:layout_width="wrap_content"-->
@@ -56,7 +132,7 @@
 <!--        android:orientation="horizontal"-->
 <!--        app:layout_constraintEnd_toEndOf="parent"-->
 <!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/tv_category">-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/tv_expense_category">-->
 
 <!--        <LinearLayout-->
 <!--            android:id="@+id/ll_category"-->
@@ -76,7 +152,7 @@
 <!--                android:text="Food"-->
 <!--                android:textAppearance="?android:textAppearanceMedium"-->
 <!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/tv_category" />-->
+<!--                app:layout_constraintTop_toBottomOf="@id/tv_expense_category" />-->
 
 <!--            <Button-->
 <!--                android:id="@+id/button_clothes"-->
@@ -87,7 +163,7 @@
 <!--                android:text="Clothes"-->
 <!--                android:textAppearance="?android:textAppearanceMedium"-->
 <!--                app:layout_constraintStart_toEndOf="@id/button_food"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/tv_category" />-->
+<!--                app:layout_constraintTop_toBottomOf="@id/tv_expense_category" />-->
 
 <!--            <Button-->
 <!--                android:id="@+id/button_education"-->
@@ -98,68 +174,13 @@
 <!--                android:text="Education"-->
 <!--                android:textAppearance="?android:textAppearanceMedium"-->
 <!--                app:layout_constraintStart_toEndOf="@id/button_clothes"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/tv_category" />-->
+<!--                app:layout_constraintTop_toBottomOf="@id/tv_expense_category" />-->
 <!--        </LinearLayout>-->
 <!--    </RadioGroup>-->
 <!--    <ListView-->
 <!--        android:id="@+id/lv_category_list"-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/tv_category"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/tv_expense_category"-->
 <!--        >-->
-
-
-
 <!--    </ListView>-->
-    <LinearLayout
-        android:id="@+id/ll_category"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/tv_category"
-        app:layout_constraintBottom_toTopOf="@id/enter_button"
-        >
-        <RadioGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-            <RadioButton
-                android:id="@+id/cb_1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Houseware"
-                >
-            </RadioButton>
-            <RadioButton
-                android:id="@+id/cb_2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Education"
-                >
-            </RadioButton>
-            <RadioButton
-                android:id="@+id/cb_3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Computer"
-                >
-            </RadioButton>
-
-        </RadioGroup>
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/enter_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:backgroundTint="@color/gray"
-        android:text="Enter"
-        android:textAppearance="?android:textAppearanceMedium"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ll_category"
-        />
-<!--        app:layout_constraintTop_toBottomOf="@+id/rg_category"-->
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>

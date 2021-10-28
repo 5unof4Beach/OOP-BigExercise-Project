@@ -27,6 +27,69 @@
         app:layout_constraintTop_toBottomOf="@+id/income_title"
         tools:layout_editor_absoluteX="10dp" />
 
+    <TextView
+        android:id="@+id/tv_income_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Category"
+        android:textAppearance="?android:textAppearanceLarge"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/et_note" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_category"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/tv_income_category"
+        >
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <RadioButton
+                    android:id="@+id/rb_salary"
+                    android:layout_width="match_parent"
+                    android:buttonTint="@color/radio_button"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Salary"
+                    >
+                </RadioButton>
+                <RadioButton
+                    android:id="@+id/rb_bonus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/radio_button"
+                    android:text="Bonus"
+                    >
+                </RadioButton>
+                <RadioButton
+                    android:id="@+id/rb_investment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/radio_button"
+                    android:text="Investment"
+                    >
+                </RadioButton>
+                <RadioButton
+                    android:id="@+id/rb_pocket_money"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/radio_button"
+                    android:text="Pocket Money"
+                    >
+                </RadioButton>
+            </RadioGroup>
+        </ScrollView>
+    </LinearLayout>
 
     <Button
         android:id="@+id/enter_button"
@@ -34,10 +97,11 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:text="Enter"
-        android:backgroundTint="@color/orange"
+        android:backgroundTint="@color/gray"
         android:textAppearance="?android:textAppearanceMedium"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="10dp" />
-
+        app:layout_constraintTop_toBottomOf="@id/ll_category"
+    >
+    </Button>
 
 </LinearLayout>
