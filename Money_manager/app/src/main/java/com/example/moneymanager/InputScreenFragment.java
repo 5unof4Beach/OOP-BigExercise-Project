@@ -32,6 +32,7 @@ public class InputScreenFragment extends Fragment {
         incomeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 replaceFragmentContent(new IncomeFragment());
             }
         });
