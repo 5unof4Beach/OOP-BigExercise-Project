@@ -7,9 +7,10 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="blue">#D25B00</color>
+    <color name="blue">#1A66FF</color>
     <color name="gray">#746E6A</color>
     <color name="orange">#E16F54</color>
     <color name="dark_orange">#EA5F14</color>
-    <color name="radio_button">#9F2941</color>
+    <color name="radio_button_expense">#9F2941</color>
+    <color name="radio_button_income">#3048EC</color>
 </resources>

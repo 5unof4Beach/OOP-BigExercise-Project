@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:text="Income"
+        android:textColor="@color/blue"
         android:textAppearance="?android:textAppearanceLarge"
         app:layout_constraintLeft_toLeftOf="parent"
         android:textStyle="bold"
@@ -33,6 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:text="Category"
+        android:textColor="@color/blue"
         android:textAppearance="?android:textAppearanceLarge"
         app:layout_constraintLeft_toLeftOf="parent"
         android:textStyle="bold"
@@ -57,7 +59,7 @@
                 <RadioButton
                     android:id="@+id/rb_salary"
                     android:layout_width="match_parent"
-                    android:buttonTint="@color/radio_button"
+                    android:buttonTint="@color/radio_button_income"
                     android:layout_height="wrap_content"
                     android:checked="true"
                     android:text="Salary"
@@ -67,7 +69,7 @@
                     android:id="@+id/rb_bonus"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:buttonTint="@color/radio_button"
+                    android:buttonTint="@color/radio_button_income"
                     android:text="Bonus"
                     >
                 </RadioButton>
@@ -75,7 +77,7 @@
                     android:id="@+id/rb_investment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:buttonTint="@color/radio_button"
+                    android:buttonTint="@color/radio_button_income"
                     android:text="Investment"
                     >
                 </RadioButton>
@@ -83,7 +85,7 @@
                     android:id="@+id/rb_pocket_money"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:buttonTint="@color/radio_button"
+                    android:buttonTint="@color/radio_button_income"
                     android:text="Pocket Money"
                     >
                 </RadioButton>
@@ -97,7 +99,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:text="Enter"
-        android:backgroundTint="@color/gray"
+        android:backgroundTint="@color/blue"
         android:textAppearance="?android:textAppearanceMedium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ll_category"
