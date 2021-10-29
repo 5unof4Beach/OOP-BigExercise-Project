@@ -25,13 +25,11 @@ import com.example.moneymanager.mainprocess.Input;
 import java.util.Vector;
 
 public class ExpenseFragmnet extends Fragment {
-    private ListView listView;
     Vector<Input> expenses = new Vector<>();
     Integer amount = 0;
     String category = "";
     String note = "";
 
-    SummaryFragment summaryFragment = new SummaryFragment();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
@@ -56,8 +54,8 @@ public class ExpenseFragmnet extends Fragment {
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                clearAllFocus(noteField, amountField);
                 if(amount != 0){
-                    clearAllFocus(noteField, amountField);
                     String show = amount + " " + note + " " + category;
                     addToList();
                     reInit(noteField, amountField);
