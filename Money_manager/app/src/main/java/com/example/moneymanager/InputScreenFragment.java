@@ -33,8 +33,8 @@ public class InputScreenFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
-        Button incomeButton = (Button)getView().findViewById(R.id.button_enter_income);
-        Button expenseButton = (Button)getView().findViewById(R.id.button_enter_expense);
+        Button incomeButton = (Button) view.findViewById(R.id.button_enter_income);
+        Button expenseButton = (Button) view.findViewById(R.id.button_enter_expense);
 
         incomeButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -37,6 +37,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:hint="Note"
+        android:lines="1"
+        android:maxLines="1"
         android:backgroundTint="@color/orange"
         android:textCursorDrawable="@color/orange"
         app:layout_constraintTop_toBottomOf="@id/et_expense_amount"
