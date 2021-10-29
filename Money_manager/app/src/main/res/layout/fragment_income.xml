@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/income_title"
+        android:id="@+id/tv_income_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -19,13 +19,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/income_amount"
+        android:id="@+id/et_income_amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:hint="Enter amount"
         android:inputType="number"
-        app:layout_constraintTop_toBottomOf="@+id/income_title"
+        android:backgroundTint="@color/blue"
+        android:textCursorDrawable="@color/blue"
+        app:layout_constraintTop_toBottomOf="@+id/tv_income_title"
         tools:layout_editor_absoluteX="10dp" />
 
     <TextView
@@ -38,7 +40,7 @@
         android:textAppearance="?android:textAppearanceLarge"
         app:layout_constraintLeft_toLeftOf="parent"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/et_note" />
+        app:layout_constraintTop_toBottomOf="@id/et_income_amount" />
 
 
     <LinearLayout

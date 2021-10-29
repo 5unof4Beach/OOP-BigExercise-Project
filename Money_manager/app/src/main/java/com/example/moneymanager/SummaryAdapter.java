@@ -27,9 +27,6 @@ public class SummaryAdapter extends RecyclerView.Adapter<SummaryAdapter.DataView
         View itemView;
 
         switch (viewType){
-            case 1:
-                itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.summary_rv_expense_item_name,parent,false);
-                break;
             case 2:
                 itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.summary_rv_income_item_name,parent,false);
                 break;

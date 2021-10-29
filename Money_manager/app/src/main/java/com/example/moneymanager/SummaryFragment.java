@@ -23,10 +23,10 @@ public class SummaryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        list.add(new Input(5000,"tien di net","computer",1));
-        list.add(new Input(100000,"tien dong hoc","study",2));
-        list.add(new Input(22000,"","houseware",1));
-        list.add(new Input(500000,"tien da pho","entertainment",2));
+//        list.add(new Input(5000,"tien di net","computer",1));
+//        list.add(new Input(100000,"tien dong hoc","study",2));
+//        list.add(new Input(22000,"","houseware",1));
+//        list.add(new Input(500000,"tien da pho","entertainment",2));
         return inflater.inflate(R.layout.fragment_summary, container, false);
     }
         @Override

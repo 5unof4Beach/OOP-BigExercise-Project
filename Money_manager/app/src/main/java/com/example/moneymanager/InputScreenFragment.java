@@ -14,13 +14,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.moneymanager.mainprocess.Input;
+
+import java.util.Vector;
+
 
 public class InputScreenFragment extends Fragment {
+    Vector<Input> inputs = new Vector<>();
+    IncomeFragment incomeFragment = new IncomeFragment();
+    ExpenseFragmnet expenseFragmnet = new ExpenseFragmnet();
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        initFragment();
+        replaceFragmentContent(expenseFragmnet);
         return inflater.inflate(R.layout.fragment_input_screen, container, false);
     }
 
@@ -32,15 +39,14 @@ public class InputScreenFragment extends Fragment {
         incomeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                replaceFragmentContent(new IncomeFragment());
+                replaceFragmentContent(incomeFragment);
             }
         });
 
         expenseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                replaceFragmentContent(new ExpenseFragmnet());
+                replaceFragmentContent(expenseFragmnet);
             }
         });
     }

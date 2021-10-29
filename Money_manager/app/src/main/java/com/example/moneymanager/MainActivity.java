@@ -9,42 +9,34 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.moneymanager.mainprocess.Input;
+
+import java.util.Vector;
+
 public class MainActivity extends AppCompatActivity {
+    public Vector<Input> inputs = new Vector<>();
+    InputScreenFragment inputScreenFragment = new InputScreenFragment();
+    SummaryFragment summaryFragment = new SummaryFragment();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        Button expenseButton = (Button)findViewById(R.id.button_enter_expense);
-//        Button incomeButton = (Button)findViewById(R.id.button_enter_income);
         Button inputScreenButton = (Button)findViewById(R.id.button_input_page);
         Button summaryScreenButton = (Button)findViewById(R.id.button_summary_page);
-
-//        expenseButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                replaceFragmentContent(new ExpenseFragmnet());
-//            }
-//        });
-//
-//        incomeButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                replaceFragmentContent(new IncomeFragment());
-//            }
-//        });
 
         inputScreenButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                replaceFragmentContent(new InputScreenFragment());
+                replaceFragmentContent(inputScreenFragment);
             }
         });
 
         summaryScreenButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                replaceFragmentContent(new SummaryFragment());
+                replaceFragmentContent(summaryFragment);
             }
         });
         initFragment();
