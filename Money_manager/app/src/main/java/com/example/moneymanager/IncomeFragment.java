@@ -16,10 +16,38 @@ import android.widget.Toast;
 
 import com.example.moneymanager.mainprocess.Input;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.Vector;
 
 public class IncomeFragment extends Fragment {
-    Vector<Input> expenses = new Vector<>();
+
+    File f = new File("/storage/emulated/0/Android/data/InputData/Data.in");
+    FileOutputStream fos;
+
+    {
+        try {
+            fos = new FileOutputStream(f);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+    ;
+    ObjectOutputStream objectOut;
+
+    {
+        try {
+            objectOut = new ObjectOutputStream(fos);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    ;
+
+    Vector<Input> incomes = new Vector<>();
     Integer amount = 0;
     String category = "";
 
@@ -47,6 +75,7 @@ public class IncomeFragment extends Fragment {
                     String show = amount + " " + category;
                     addToList();
                     reInit(amountField);
+//                    closeFile();
 //                    Toast.makeText(ExpenseFragmnet.super.getContext(), "New Expense Added", Toast.LENGTH_SHORT).show();
                     Toast.makeText(IncomeFragment.super.getContext(), show, Toast.LENGTH_SHORT).show();
                 }
@@ -55,9 +84,25 @@ public class IncomeFragment extends Fragment {
                 }
             }
         });
+
+//        summaryButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                writeUserInputToFile();
+//            }
+//        });
     }
+
+    private void closeFile() {
+        try {
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void addToList(){
-        expenses.add(new Input(amount, category,2));
+        incomes.add(new Input(amount, category,2));
     }
 
     public void clearAllFocus(EditText amountField){
@@ -92,6 +137,9 @@ public class IncomeFragment extends Fragment {
 //    }
 
     public void getCategoryChoice(RadioGroup categoryField){
+        int id = categoryField.getCheckedRadioButtonId();
+        RadioButton button = (RadioButton) getView().findViewById(id);
+        category = button.getText().toString();
         categoryField.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -100,5 +148,12 @@ public class IncomeFragment extends Fragment {
                 category = button.getText().toString();
             }
         });
+    }
+    public void writeUserInputToFile(){
+        try {
+            objectOut.writeObject(incomes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -11,12 +11,19 @@ import android.widget.Button;
 
 import com.example.moneymanager.mainprocess.Input;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Vector;
 
 public class MainActivity extends AppCompatActivity {
+
+    Vector<Input> expenses = new Vector<>();
     public Vector<Input> inputs = new Vector<>();
     InputScreenFragment inputScreenFragment = new InputScreenFragment();
     SummaryFragment summaryFragment = new SummaryFragment();
+    boolean isInInputScreen = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,14 +36,20 @@ public class MainActivity extends AppCompatActivity {
         inputScreenButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                replaceFragmentContent(inputScreenFragment);
+                if(!isInInputScreen){
+                    replaceFragmentContent(inputScreenFragment);
+                    isInInputScreen = true;
+                }
             }
         });
 
         summaryScreenButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                replaceFragmentContent(summaryFragment);
+                if(isInInputScreen){
+                    replaceFragmentContent(summaryFragment);
+                    isInInputScreen = false;
+                }
             }
         });
         initFragment();

@@ -23,6 +23,13 @@ public class InputScreenFragment extends Fragment {
     Vector<Input> inputs = new Vector<>();
     IncomeFragment incomeFragment = new IncomeFragment();
     ExpenseFragmnet expenseFragmnet = new ExpenseFragmnet();
+    boolean isInExpenseScreen = true;
+
+    public View getMainView() {
+        return mainView;
+    }
+
+    View mainView = super.getView();
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,6 +42,7 @@ public class InputScreenFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
         Button incomeButton = (Button) view.findViewById(R.id.button_enter_income);
         Button expenseButton = (Button) view.findViewById(R.id.button_enter_expense);
+
 
         incomeButton.setOnClickListener(new View.OnClickListener() {
             @Override

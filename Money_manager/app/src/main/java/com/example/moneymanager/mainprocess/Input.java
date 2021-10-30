@@ -1,6 +1,8 @@
 package com.example.moneymanager.mainprocess;
 
-public class Input {
+import java.io.Serializable;
+
+public class Input implements Serializable {
     private int amount,type;
     private String note = "", category="";
 
