@@ -22,6 +22,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.moneymanager.data.InputDataBaseHelper;
 import com.example.moneymanager.mainprocess.Input;
 
 import java.io.File;
@@ -32,31 +33,8 @@ import java.io.ObjectOutputStream;
 import java.util.Vector;
 
 public class ExpenseFragmnet extends Fragment {
-
+    InputDataBaseHelper dbHelper;
     Vector<Input> expenses = new Vector<>();
-    File f = new File("/storage/emulated/0/Android/data/InputData/Data.in");
-    FileOutputStream fos;
-
-    {
-        try {
-            fos = new FileOutputStream(f);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-    ;
-    ObjectOutputStream objectOut;
-
-    {
-        try {
-            objectOut = new ObjectOutputStream(fos);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    ;
-
     Integer amount = 0;
     String category = "";
     String note = "";
@@ -64,6 +42,7 @@ public class ExpenseFragmnet extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
+        dbHelper = new InputDataBaseHelper(getContext());
         View view = inflater.inflate(R.layout.fragment_expense, container, false);
 //        initView(view);
         return view;
@@ -75,7 +54,6 @@ public class ExpenseFragmnet extends Fragment {
         EditText noteField = (EditText) view.findViewById(R.id.et_note);
         RadioGroup categoryField = (RadioGroup) view.findViewById(R.id.rg_category);
         Button enterButton = (Button) view.findViewById(R.id.enter_button);
-//        Button summaryScreenButton = (Button)view.findViewById(R.id.button_e_summary_page);
 
         getAmount(amountField);
 
@@ -89,8 +67,9 @@ public class ExpenseFragmnet extends Fragment {
                 clearAllFocus(noteField, amountField);
                 if(amount != 0){
                     String show = amount + " " + note + " " + category;
-                    addToList();
-                    writeUserInputToFile();
+//                    addToList();
+//                    writeUserInputToFile();
+                    addToDB();
                     reInit(noteField, amountField);
                     Toast.makeText(ExpenseFragmnet.super.getContext(), show, Toast.LENGTH_SHORT).show();
 //                    Toast.makeText(ExpenseFragmnet.super.getContext(), "New Expense Added", Toast.LENGTH_SHORT).show();
@@ -111,17 +90,15 @@ public class ExpenseFragmnet extends Fragment {
 //        });
     }
 
-    public void closeFile() {
-        try {
-            fos.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void addToList(){
         expenses.add(new Input(amount, note, category,1));
     }
+
+    public void addToDB(){
+        dbHelper.addInput(new Input(amount, note, category,1));
+    }
+
 
     public void clearAllFocus(EditText noteField, EditText amountField){
         noteField.clearFocus();
@@ -171,13 +148,6 @@ public class ExpenseFragmnet extends Fragment {
         });
     }
 
-    public void writeUserInputToFile(){
-        try {
-            objectOut.writeObject(expenses);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
 //    protected void replaceFragmentContent(Fragment fragment) {
 //

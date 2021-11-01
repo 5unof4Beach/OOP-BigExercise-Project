@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.moneymanager.data.InputDataBaseHelper;
 import com.example.moneymanager.mainprocess.Input;
 
 import java.io.File;
@@ -22,7 +23,7 @@ import java.io.ObjectOutputStream;
 import java.util.Vector;
 
 public class SummaryFragment extends Fragment {
-
+    InputDataBaseHelper dbHelper;
     String filepath = "InputData";
     File f = new File("/storage/emulated/0/Android/data/InputData/Data.in");
     File f2 = new File("/storage/emulated/0/Android/data/InputData/Data2.in");
@@ -55,31 +56,27 @@ public class SummaryFragment extends Fragment {
     private RecyclerView rv_expense_Items;
     private RecyclerView rv_income_Items;
     Vector<Input> list = new Vector<>();
+//    Vector<Input> list = dbHelper.getAllInput();
     Vector<Input> list2 = new Vector<>();
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        dbHelper = new InputDataBaseHelper(this.getContext());
         return inflater.inflate(R.layout.fragment_summary, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
-        Input temp = new Input(0,"",1);
-        try {
-            list  = (Vector<Input>) objectIn.readObject();
-            list2  = (Vector<Input>) objectIn2.readObject();
+            list  = dbHelper.getAllInput();
+//            list2  = (Vector<Input>) objectIn2.readObject();
 
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         rv_expense_Items = (RecyclerView) getView().findViewById(R.id.rv_expense_summary);
-        rv_income_Items = (RecyclerView) getView().findViewById(R.id.rv_income_summary);
+//        rv_income_Items = (RecyclerView) getView().findViewById(R.id.rv_income_summary);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
-//        showExpenses(rv_expense_Items, layoutManager);
-        showIncomes(rv_income_Items, layoutManager);
+//        LinearLayoutManager layoutManager2 = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
+        showExpenses(rv_expense_Items, layoutManager);
+//        showIncomes(rv_income_Items, layoutManager2);
 //        show(rv_expense_Items, rv_income_Items, layoutManager);
     }
 
@@ -89,18 +86,10 @@ public class SummaryFragment extends Fragment {
         rv.setAdapter(new SummaryAdapter(list, this.getContext()));
     }
 
-    public void showIncomes(RecyclerView rv,LinearLayoutManager layoutManager){
-        rv.setLayoutManager(layoutManager);
-        rv.hasFixedSize();
-        rv.setAdapter(new SummaryAdapter(list2, this.getContext()));
-    }
+//    public void showIncomes(RecyclerView rv,LinearLayoutManager layoutManager){
+//        rv.setLayoutManager(layoutManager);
+//        rv.hasFixedSize();
+//        rv.setAdapter(new SummaryAdapter(list2, this.getContext()));
+//    }
 
-    public void show(RecyclerView rv1,RecyclerView rv2,LinearLayoutManager layoutManager){
-        rv1.setLayoutManager(layoutManager);
-        rv1.hasFixedSize();
-        rv1.setAdapter(new SummaryAdapter(list, this.getContext()));
-        rv2.setLayoutManager(layoutManager);
-        rv2.hasFixedSize();
-        rv2.setAdapter(new SummaryAdapter(list2, this.getContext()));
-    }
 }

@@ -20,16 +20,11 @@ import java.util.Vector;
 
 
 public class InputScreenFragment extends Fragment {
-    Vector<Input> inputs = new Vector<>();
     IncomeFragment incomeFragment = new IncomeFragment();
     ExpenseFragmnet expenseFragmnet = new ExpenseFragmnet();
     boolean isInExpenseScreen = true;
 
-    public View getMainView() {
-        return mainView;
-    }
 
-    View mainView = super.getView();
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,16 +42,18 @@ public class InputScreenFragment extends Fragment {
         incomeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                replaceFragmentContent(new IncomeFragment());
+//                replaceFragmentContent(new IncomeFragment());
+//                expenseFragmnet.writeUserInputToFile();
+                replaceFragmentContent(incomeFragment);
             }
         });
 
         expenseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                replaceFragmentContent(new ExpenseFragmnet());
+//                replaceFragmentContent(new ExpenseFragmnet());
+//                incomeFragment.writeUserInputToFile();
+                replaceFragmentContent(expenseFragmnet);
             }
         });
     }
@@ -86,8 +83,5 @@ public class InputScreenFragment extends Fragment {
             ft.commit();
 
         }
-    }
-    public void closeAllFiles(){
-        incomeFragment.closeFile();
     }
 }

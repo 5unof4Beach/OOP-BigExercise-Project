@@ -16,6 +16,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.example.moneymanager.data.InputDataBaseHelper;
 import com.example.moneymanager.mainprocess.Input;
 
 import java.io.File;
@@ -26,29 +27,7 @@ import java.util.Vector;
 
 public class IncomeFragment extends Fragment {
 
-    File f = new File("/storage/emulated/0/Android/data/InputData/Data.in");
-    FileOutputStream fos;
-
-    {
-        try {
-            fos = new FileOutputStream(f);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-    ;
-    ObjectOutputStream objectOut;
-
-    {
-        try {
-            objectOut = new ObjectOutputStream(fos);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    ;
-
+    InputDataBaseHelper dbHelper;
     Vector<Input> incomes = new Vector<>();
     Integer amount = 0;
     String category = "";
@@ -56,6 +35,7 @@ public class IncomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
+        dbHelper = new InputDataBaseHelper(getContext());
         return inflater.inflate(R.layout.fragment_income, container, false);
     }
 
@@ -64,7 +44,6 @@ public class IncomeFragment extends Fragment {
         EditText amountField = (EditText) view.findViewById(R.id.et_income_amount);
         RadioGroup categoryField = (RadioGroup) view.findViewById(R.id.rg_category);
         Button enterButton = (Button) view.findViewById(R.id.enter_button);
-//        Button summaryScreenButton = (Button)view.findViewById(R.id.button_i_summary_page);
 
         getAmount(amountField);
 
@@ -77,10 +56,10 @@ public class IncomeFragment extends Fragment {
                 if(amount != 0){
                     String show = amount + " " + category;
                     addToList();
-                    writeUserInputToFile();
+                    addToDB();
                     reInit(amountField);
-//                    Toast.makeText(ExpenseFragmnet.super.getContext(), "New Expense Added", Toast.LENGTH_SHORT).show();
                     Toast.makeText(IncomeFragment.super.getContext(), show, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ExpenseFragmnet.super.getContext(), "New Expense Added", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     Toast.makeText(IncomeFragment.super.getContext(), "Please Enter Amount", Toast.LENGTH_SHORT).show();
@@ -88,21 +67,10 @@ public class IncomeFragment extends Fragment {
             }
         });
 
-//        summaryScreenButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                closeFile();
-//                replaceFragmentContent(new SummaryFragment());
-//            }
-//        });
     }
 
-    public void closeFile() {
-        try {
-            fos.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void addToDB(){
+        dbHelper.addInput(new Input(amount, category,2));
     }
 
     public void addToList(){
@@ -152,13 +120,6 @@ public class IncomeFragment extends Fragment {
                 category = button.getText().toString();
             }
         });
-    }
-    public void writeUserInputToFile(){
-        try {
-            objectOut.writeObject(incomes);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
 //    protected void replaceFragmentContent(Fragment fragment) {

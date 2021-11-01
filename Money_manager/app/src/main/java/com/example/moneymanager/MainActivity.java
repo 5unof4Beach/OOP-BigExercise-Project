@@ -1,5 +1,6 @@
 package com.example.moneymanager;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.moneymanager.data.InputDataBaseHelper;
 import com.example.moneymanager.mainprocess.Input;
 
 import java.io.File;
@@ -19,6 +21,7 @@ import java.util.Vector;
 
 public class MainActivity extends AppCompatActivity {
 
+    InputDataBaseHelper dbHelper;
     Vector<Input> expenses = new Vector<>();
     public Vector<Input> inputs = new Vector<>();
     InputScreenFragment inputScreenFragment = new InputScreenFragment();
@@ -29,7 +32,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initFragment();
 
+        dbHelper = new InputDataBaseHelper(this);
         Button inputScreenButton = (Button)findViewById(R.id.button_input_page);
         Button summaryScreenButton = (Button)findViewById(R.id.button_summary_page);
 
@@ -46,14 +51,14 @@ public class MainActivity extends AppCompatActivity {
         summaryScreenButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                dbHelper.getAllInput();
                 if(isInInputScreen){
-//                    inputScreenFragment.closeAllFiles();
-                    replaceFragmentContent(new SummaryFragment());
+                    replaceFragmentContent(summaryFragment);
+//                    replaceFragmentContent(new SummaryFragment());
                     isInInputScreen = false;
                 }
             }
         });
-        initFragment();
     }
 
     private void initFragment(){

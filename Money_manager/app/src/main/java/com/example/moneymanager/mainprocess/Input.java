@@ -3,7 +3,7 @@ package com.example.moneymanager.mainprocess;
 import java.io.Serializable;
 
 public class Input implements Serializable {
-    private int amount,type;
+    private long amount,type;
     private String note = "", category="";
 
     public Input(int amount, String note, String category, int type) {
@@ -18,7 +18,7 @@ public class Input implements Serializable {
         this.type = type;
     }
 
-    public int getAmount() {
+    public long getAmount() {
         return amount;
     }
 
@@ -30,7 +30,7 @@ public class Input implements Serializable {
         return category;
     }
 
-    public int getType() {
+    public long getType() {
         return type;
     }
 }
