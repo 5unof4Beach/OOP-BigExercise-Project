@@ -47,14 +47,16 @@ public class InputScreenFragment extends Fragment {
         incomeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                replaceFragmentContent(incomeFragment);
+
+                replaceFragmentContent(new IncomeFragment());
             }
         });
 
         expenseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                replaceFragmentContent(expenseFragmnet);
+
+                replaceFragmentContent(new ExpenseFragmnet());
             }
         });
     }
@@ -84,5 +86,8 @@ public class InputScreenFragment extends Fragment {
             ft.commit();
 
         }
+    }
+    public void closeAllFiles(){
+        incomeFragment.closeFile();
     }
 }

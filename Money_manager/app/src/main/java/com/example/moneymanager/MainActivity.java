@@ -47,7 +47,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(isInInputScreen){
-                    replaceFragmentContent(summaryFragment);
+//                    inputScreenFragment.closeAllFiles();
+                    replaceFragmentContent(new SummaryFragment());
                     isInInputScreen = false;
                 }
             }

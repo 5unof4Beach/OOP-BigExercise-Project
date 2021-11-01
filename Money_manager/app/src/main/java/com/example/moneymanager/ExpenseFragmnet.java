@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.widget.TextViewOnReceiveContentListener;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -73,6 +75,7 @@ public class ExpenseFragmnet extends Fragment {
         EditText noteField = (EditText) view.findViewById(R.id.et_note);
         RadioGroup categoryField = (RadioGroup) view.findViewById(R.id.rg_category);
         Button enterButton = (Button) view.findViewById(R.id.enter_button);
+//        Button summaryScreenButton = (Button)view.findViewById(R.id.button_e_summary_page);
 
         getAmount(amountField);
 
@@ -97,7 +100,25 @@ public class ExpenseFragmnet extends Fragment {
                 }
             }
         });
+
+
+//        summaryScreenButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                closeFile();
+//                replaceFragmentContent(new SummaryFragment());
+//            }
+//        });
     }
+
+    public void closeFile() {
+        try {
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void addToList(){
         expenses.add(new Input(amount, note, category,1));
     }
@@ -157,4 +178,19 @@ public class ExpenseFragmnet extends Fragment {
             e.printStackTrace();
         }
     }
+
+//    protected void replaceFragmentContent(Fragment fragment) {
+//
+//        if (fragment != null) {
+//
+//            FragmentManager fmgr = getChildFragmentManager();
+//
+//            FragmentTransaction ft = fmgr.beginTransaction();
+//
+//            ft.replace(R.id.ll_expense_fragment_layout, fragment);
+//
+//            ft.commit();
+//
+//        }
+//    }
 }

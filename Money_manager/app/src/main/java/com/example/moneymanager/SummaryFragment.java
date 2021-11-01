@@ -25,11 +25,14 @@ public class SummaryFragment extends Fragment {
 
     String filepath = "InputData";
     File f = new File("/storage/emulated/0/Android/data/InputData/Data.in");
+    File f2 = new File("/storage/emulated/0/Android/data/InputData/Data2.in");
     FileInputStream fin;
+    FileInputStream fin2;
 
     {
         try {
             fin = new FileInputStream(f);
+            fin2 = new FileInputStream(f2);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -37,44 +40,67 @@ public class SummaryFragment extends Fragment {
     }
     ;
     ObjectInputStream objectIn;
+    ObjectInputStream objectIn2;
 
     {
         try {
             objectIn = new ObjectInputStream(fin);
+            objectIn2 = new ObjectInputStream(fin2);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
     ;
 
-    private RecyclerView rvItems;
+    private RecyclerView rv_expense_Items;
+    private RecyclerView rv_income_Items;
     Vector<Input> list = new Vector<>();
-//    Vector<IncomeFragment> incomes = new Vector<>();
+    Vector<Input> list2 = new Vector<>();
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-//        list.add(temp);
         return inflater.inflate(R.layout.fragment_summary, container, false);
     }
-        @Override
+
+    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
         Input temp = new Input(0,"",1);
         try {
             list  = (Vector<Input>) objectIn.readObject();
+            list2  = (Vector<Input>) objectIn2.readObject();
+
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        rvItems = (RecyclerView) getView().findViewById(R.id.rv_summary);
+        rv_expense_Items = (RecyclerView) getView().findViewById(R.id.rv_expense_summary);
+        rv_income_Items = (RecyclerView) getView().findViewById(R.id.rv_income_summary);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
-        rvItems.setLayoutManager(layoutManager);
-        rvItems.hasFixedSize();
-        rvItems.setAdapter(new SummaryAdapter(list, this.getContext()));
+//        showExpenses(rv_expense_Items, layoutManager);
+        showIncomes(rv_income_Items, layoutManager);
+//        show(rv_expense_Items, rv_income_Items, layoutManager);
+    }
+
+    public void showExpenses(RecyclerView rv,LinearLayoutManager layoutManager){
+        rv.setLayoutManager(layoutManager);
+        rv.hasFixedSize();
+        rv.setAdapter(new SummaryAdapter(list, this.getContext()));
+    }
+
+    public void showIncomes(RecyclerView rv,LinearLayoutManager layoutManager){
+        rv.setLayoutManager(layoutManager);
+        rv.hasFixedSize();
+        rv.setAdapter(new SummaryAdapter(list2, this.getContext()));
+    }
+
+    public void show(RecyclerView rv1,RecyclerView rv2,LinearLayoutManager layoutManager){
+        rv1.setLayoutManager(layoutManager);
+        rv1.hasFixedSize();
+        rv1.setAdapter(new SummaryAdapter(list, this.getContext()));
+        rv2.setLayoutManager(layoutManager);
+        rv2.hasFixedSize();
+        rv2.setAdapter(new SummaryAdapter(list2, this.getContext()));
     }
 }
-//        list.add(new Input(5000,"tien di net","computer",1));
-//        list.add(new Input(100000,"tien dong hoc","study",2));
-//        list.add(new Input(22000,"","houseware",1));
-//        list.add(new Input(500000,"tien da pho","entertainment",2));

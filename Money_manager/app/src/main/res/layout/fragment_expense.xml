@@ -7,6 +7,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+
+
     <TextView
         android:id="@+id/tv_expense"
         android:layout_width="wrap_content"
@@ -128,7 +130,42 @@
         android:textAppearance="?android:textAppearanceMedium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ll_category"
-        />
+        tools:layout_editor_absoluteX="10dp" />
+<!--    <LinearLayout-->
+<!--        android:id="@+id/ll_bottom_option_buttons"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:gravity="center"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent">-->
+<!---->
+<!--        <Button-->
+<!--            android:id="@+id/button_input_page"-->
+<!--            android:layout_margin="10dp"-->
+<!--            android:layout_width="150dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Input"-->
+<!--            android:backgroundTint="@color/gray"-->
+<!--            />-->
+<!--        <Button-->
+<!--            android:id="@+id/button_e_summary_page"-->
+<!--            android:layout_margin="10dp"-->
+<!--            android:layout_width="150dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Summary"-->
+<!--            android:backgroundTint="@color/gray"-->
+<!--            />-->
+<!--    </LinearLayout>-->
+<!--        <FrameLayout-->
+<!--            android:id="@+id/ll_expense_fragment_layout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent">-->
+
+<!--        </FrameLayout>-->
 
 
 

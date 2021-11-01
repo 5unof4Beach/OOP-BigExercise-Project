@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_expense"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
+
 
     <TextView
         android:id="@+id/tv_income_title"
@@ -101,12 +104,48 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="Enter"
         android:backgroundTint="@color/blue"
+        android:text="Enter"
         android:textAppearance="?android:textAppearanceMedium"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ll_category"
-    >
-    </Button>
+        app:layout_constraintTop_toBottomOf="@+id/ll_category"
+        tools:layout_editor_absoluteX="10dp">
 
-</LinearLayout>
+    </Button>
+<!--    <LinearLayout-->
+<!--        android:id="@+id/ll_bottom_option_buttons"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:gravity="center"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent">-->
+
+<!--        <Button-->
+<!--            android:id="@+id/button_input_page"-->
+<!--            android:layout_margin="10dp"-->
+<!--            android:layout_width="150dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Input"-->
+<!--            android:backgroundTint="@color/gray"-->
+<!--            />-->
+<!--        <Button-->
+<!--            android:id="@+id/button_i_summary_page"-->
+<!--            android:layout_margin="10dp"-->
+<!--            android:layout_width="150dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Summary"-->
+<!--            android:backgroundTint="@color/gray"-->
+<!--            />-->
+<!--    </LinearLayout>-->
+<!--        <FrameLayout-->
+<!--            android:id="@+id/ll_income_fragment_layout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent">-->
+
+<!--        </FrameLayout>-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

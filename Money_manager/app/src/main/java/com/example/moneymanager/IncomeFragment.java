@@ -2,6 +2,8 @@ package com.example.moneymanager;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -62,6 +64,7 @@ public class IncomeFragment extends Fragment {
         EditText amountField = (EditText) view.findViewById(R.id.et_income_amount);
         RadioGroup categoryField = (RadioGroup) view.findViewById(R.id.rg_category);
         Button enterButton = (Button) view.findViewById(R.id.enter_button);
+//        Button summaryScreenButton = (Button)view.findViewById(R.id.button_i_summary_page);
 
         getAmount(amountField);
 
@@ -74,8 +77,8 @@ public class IncomeFragment extends Fragment {
                 if(amount != 0){
                     String show = amount + " " + category;
                     addToList();
+                    writeUserInputToFile();
                     reInit(amountField);
-//                    closeFile();
 //                    Toast.makeText(ExpenseFragmnet.super.getContext(), "New Expense Added", Toast.LENGTH_SHORT).show();
                     Toast.makeText(IncomeFragment.super.getContext(), show, Toast.LENGTH_SHORT).show();
                 }
@@ -85,15 +88,16 @@ public class IncomeFragment extends Fragment {
             }
         });
 
-//        summaryButton.setOnClickListener(new View.OnClickListener() {
+//        summaryScreenButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
-//                writeUserInputToFile();
+//                closeFile();
+//                replaceFragmentContent(new SummaryFragment());
 //            }
 //        });
     }
 
-    private void closeFile() {
+    public void closeFile() {
         try {
             fos.close();
         } catch (IOException e) {
@@ -156,4 +160,19 @@ public class IncomeFragment extends Fragment {
             e.printStackTrace();
         }
     }
+
+//    protected void replaceFragmentContent(Fragment fragment) {
+//
+//        if (fragment != null) {
+//
+//            FragmentManager fmgr = getChildFragmentManager();
+//
+//            FragmentTransaction ft = fmgr.beginTransaction();
+//
+//            ft.replace(R.id.ll_income_fragment_layout, fragment);
+//
+//            ft.commit();
+//
+//        }
+//    }
 }
