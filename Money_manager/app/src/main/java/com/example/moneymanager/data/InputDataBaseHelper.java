@@ -26,6 +26,8 @@ public class InputDataBaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME  = "input";
     public static final int DATABASE_VERSION  = 2;
 
+    public static String query = "";
+    public static String[] selectionArgs = {""};
 
     public InputDataBaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -74,12 +76,11 @@ public class InputDataBaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public Vector<Input> getAllInput(){
+    public Vector<Input> getAllInput(int date, int month){
         Vector<Input> inputs = new Vector<>();
 
-        String query = String.format("select * from %s where month = ?",INPUT_TABLE);
-        String[] selectionArgs = {"5"};
-
+        getQueryAndArgs(date, month);
+//        getDefaultQueryAndArgs(date, month);
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query,selectionArgs);
         cursor.moveToFirst();
@@ -94,7 +95,25 @@ public class InputDataBaseHelper extends SQLiteOpenHelper {
         return inputs;
     }
 
-    public void printSomeThing(){
-        System.out.println("Something");
+    private void getQueryAndArgs(int date, int month){
+        query = String.format("select * from %s where month = ? and date = ?",INPUT_TABLE);;
+        selectionArgs = new String[]{String.format("%s",month), String.format("%s",date)};
+        if(month == 0 && date !=0){
+            query = String.format("select * from %s where date = ?",INPUT_TABLE);
+            selectionArgs = new String[]{String.format("%s",date)};
+        }
+        else if(month != 0 && date == 0){
+            query = String.format("select * from %s where month = ?",INPUT_TABLE);
+            selectionArgs = new String[]{String.format("%s",month)};
+        }
+        else if(month == 0 && date == 0){
+            query = String.format("select * from %s",INPUT_TABLE);
+            selectionArgs = null;
+        }
+    }
+
+    private void getDefaultQueryAndArgs(int date, int month){
+        query = String.format("select * from %s",INPUT_TABLE);
+        selectionArgs = null;
     }
 }

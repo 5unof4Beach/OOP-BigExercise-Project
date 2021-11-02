@@ -69,14 +69,16 @@ public class ExpenseFragmnet extends Fragment {
 
         getCategoryChoice(categoryField);
 
+        enter(enterButton,amountField,noteField,dateField,monthField);
+    }
+
+    public void enter(Button enterButton, EditText amountField, EditText noteField, EditText dateField, EditText monthField){
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 clearAllFocus(noteField, amountField,dateField,monthField);
                 if(amount != 0){
                     String show = amount + " " + note + " " + category + " " + date + "/" + month;
-//                    addToList();
-//                    writeUserInputToFile();
                     addToDB();
                     reInit(noteField, amountField);
                     Toast.makeText(ExpenseFragmnet.super.getContext(), show, Toast.LENGTH_SHORT).show();
@@ -87,17 +89,7 @@ public class ExpenseFragmnet extends Fragment {
                 }
             }
         });
-
-
-//        summaryScreenButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                closeFile();
-//                replaceFragmentContent(new SummaryFragment());
-//            }
-//        });
     }
-
 
     public void addToList(){
         expenses.add(new Input(amount, note, category,1));
@@ -122,11 +114,12 @@ public class ExpenseFragmnet extends Fragment {
         amount = 0;
         note = "";
     }
-    public void getAmount(EditText amountField){
-        amountField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+    public void getAmount(EditText et){
+        et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                String temp = amountField.getText().toString();
+                String temp = et.getText().toString();
                 if(!temp.equals("")){
                     amount = Integer.parseInt(temp);
                     Log.v("amount","added");
@@ -136,11 +129,11 @@ public class ExpenseFragmnet extends Fragment {
         });
     }
 
-    public void getDate(EditText amountField){
-        amountField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+    public void getDate(EditText et){
+        et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                String temp = amountField.getText().toString();
+                String temp = et.getText().toString();
                 if(!temp.equals("")){
                     date = Integer.parseInt(temp);
                 }
@@ -149,11 +142,11 @@ public class ExpenseFragmnet extends Fragment {
         });
     }
 
-    public void getMonth(EditText amountField){
-        amountField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+    public void getMonth(EditText et){
+        et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                String temp = amountField.getText().toString();
+                String temp = et.getText().toString();
                 if(!temp.equals("")){
                     month = Integer.parseInt(temp);
                 }
@@ -162,11 +155,11 @@ public class ExpenseFragmnet extends Fragment {
         });
     }
 
-    public void getNote(EditText noteField){
-        noteField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+    public void getNote(EditText et){
+        et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                note = noteField.getText().toString();
+                note = et.getText().toString();
             }
         });
     }
@@ -185,19 +178,4 @@ public class ExpenseFragmnet extends Fragment {
         });
     }
 
-
-//    protected void replaceFragmentContent(Fragment fragment) {
-//
-//        if (fragment != null) {
-//
-//            FragmentManager fmgr = getChildFragmentManager();
-//
-//            FragmentTransaction ft = fmgr.beginTransaction();
-//
-//            ft.replace(R.id.ll_expense_fragment_layout, fragment);
-//
-//            ft.commit();
-//
-//        }
-//    }
 }

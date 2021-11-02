@@ -7,9 +7,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.example.moneymanager.data.InputDataBaseHelper;
 import com.example.moneymanager.mainprocess.Input;
@@ -24,40 +27,12 @@ import java.util.Vector;
 
 public class SummaryFragment extends Fragment {
     InputDataBaseHelper dbHelper;
-    String filepath = "InputData";
-    File f = new File("/storage/emulated/0/Android/data/InputData/Data.in");
-    File f2 = new File("/storage/emulated/0/Android/data/InputData/Data2.in");
-    FileInputStream fin;
-    FileInputStream fin2;
-
-    {
-        try {
-            fin = new FileInputStream(f);
-            fin2 = new FileInputStream(f2);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-    ;
-    ObjectInputStream objectIn;
-    ObjectInputStream objectIn2;
-
-    {
-        try {
-            objectIn = new ObjectInputStream(fin);
-            objectIn2 = new ObjectInputStream(fin2);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    ;
 
     private RecyclerView rv_expense_Items;
-    private RecyclerView rv_income_Items;
     Vector<Input> list = new Vector<>();
-//    Vector<Input> list = dbHelper.getAllInput();
-    Vector<Input> list2 = new Vector<>();
+    private int date = 0;
+    private int month = 0;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,28 +43,64 @@ public class SummaryFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
-            list  = dbHelper.getAllInput();
-//            list2  = (Vector<Input>) objectIn2.readObject();
+        EditText etDate = (EditText) view.findViewById(R.id.et_summary_date);
+        EditText etMonth = (EditText) view.findViewById(R.id.et_summary_month);
+        Button enterButton = (Button) view.findViewById(R.id.button_summary_enter);
+        getDate(etDate);
+        getMonth(etMonth);
+        enter(enterButton, etDate, etMonth);
 
         rv_expense_Items = (RecyclerView) getView().findViewById(R.id.rv_expense_summary);
-//        rv_income_Items = (RecyclerView) getView().findViewById(R.id.rv_income_summary);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
-//        LinearLayoutManager layoutManager2 = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
-        showExpenses(rv_expense_Items, layoutManager);
-//        showIncomes(rv_income_Items, layoutManager2);
-//        show(rv_expense_Items, rv_income_Items, layoutManager);
+        show(rv_expense_Items);
     }
 
-    public void showExpenses(RecyclerView rv,LinearLayoutManager layoutManager){
+    public void show(RecyclerView rv){
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
         rv.setLayoutManager(layoutManager);
         rv.hasFixedSize();
         rv.setAdapter(new SummaryAdapter(list, this.getContext()));
     }
 
-//    public void showIncomes(RecyclerView rv,LinearLayoutManager layoutManager){
-//        rv.setLayoutManager(layoutManager);
-//        rv.hasFixedSize();
-//        rv.setAdapter(new SummaryAdapter(list2, this.getContext()));
-//    }
+    public void enter(Button button,EditText et_date, EditText et_month){
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clearAllFocus(et_date, et_month);
+                list  = dbHelper.getAllInput(date, month);
+            }
+        });
+    }
 
+    public void clearAllFocus(EditText date, EditText month){
+        date.clearFocus();
+        month.clearFocus();
+    }
+
+    public void getDate(EditText et){
+        et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                String temp = et.getText().toString();
+                if(!temp.equals("")){
+                    date = Integer.parseInt(temp);
+                    Log.v("amount","added");
+                }
+
+            }
+        });
+    }
+
+    public void getMonth(EditText et){
+        et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                String temp = et.getText().toString();
+                if(!temp.equals("")){
+                    month = Integer.parseInt(temp);
+                    Log.v("amount","added");
+                }
+
+            }
+        });
+    }
 }
