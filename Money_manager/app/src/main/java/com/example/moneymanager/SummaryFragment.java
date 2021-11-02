@@ -28,10 +28,11 @@ import java.util.Vector;
 public class SummaryFragment extends Fragment {
     InputDataBaseHelper dbHelper;
 
-    private RecyclerView rv_expense_Items;
+    private RecyclerView rv_input_Items;
     Vector<Input> list = new Vector<>();
     private int date = 0;
     private int month = 0;
+    private int year = 0;
 
     @Nullable
     @Override
@@ -43,7 +44,7 @@ public class SummaryFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
-        rv_expense_Items = (RecyclerView) getView().findViewById(R.id.rv_expense_summary);
+        rv_input_Items = (RecyclerView) getView().findViewById(R.id.rv_expense_summary);
         EditText etDate = (EditText) view.findViewById(R.id.et_summary_date);
         EditText etMonth = (EditText) view.findViewById(R.id.et_summary_month);
         Button enterButton = (Button) view.findViewById(R.id.button_summary_enter);
@@ -65,17 +66,19 @@ public class SummaryFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 clearAllFocus(et_date, et_month);
-                list  = dbHelper.getAllInput(date, month);
+                list  = dbHelper.getAllInput(date, month, year);
                 date = 0;
                 month = 0;
-                show(rv_expense_Items);
+                show(rv_input_Items);
             }
         });
     }
 
     public void clearAllFocus(EditText date, EditText month){
         date.clearFocus();
+        date.setText("");
         month.clearFocus();
+        month.setText("");
     }
 
     public void getDate(EditText et){

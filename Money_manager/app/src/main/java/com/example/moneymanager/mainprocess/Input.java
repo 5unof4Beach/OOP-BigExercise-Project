@@ -36,6 +36,30 @@ public class Input implements Serializable {
         return type;
     }
 
+    public void setDate(long date) {
+        this.date = date;
+    }
+
+    public void setMonth(long month) {
+        this.month = month;
+    }
+
+    public void setYear(long year) {
+        this.year = year;
+    }
+
+    public long getDate() {
+        return date;
+    }
+
+    public long getMonth() {
+        return month;
+    }
+
+    public long getYear() {
+        return year;
+    }
+
     @Override
     public String toString(){
         return String.format("%d %s %s", amount,note,category);

@@ -3,11 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
-
 
     <TextView
         android:id="@+id/tv_expense"
@@ -158,102 +155,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ll_category"
         tools:layout_editor_absoluteX="10dp" />
-<!--    <LinearLayout-->
-<!--        android:id="@+id/ll_bottom_option_buttons"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="horizontal"-->
-<!--        android:gravity="center"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent">-->
-<!---->
-<!--        <Button-->
-<!--            android:id="@+id/button_input_page"-->
-<!--            android:layout_margin="10dp"-->
-<!--            android:layout_width="150dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Input"-->
-<!--            android:backgroundTint="@color/gray"-->
-<!--            />-->
-<!--        <Button-->
-<!--            android:id="@+id/button_e_summary_page"-->
-<!--            android:layout_margin="10dp"-->
-<!--            android:layout_width="150dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Summary"-->
-<!--            android:backgroundTint="@color/gray"-->
-<!--            />-->
-<!--    </LinearLayout>-->
-<!--        <FrameLayout-->
-<!--            android:id="@+id/ll_expense_fragment_layout"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent">-->
-
-<!--        </FrameLayout>-->
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-<!--    <RadioGroup-->
-<!--        android:id="@+id/rg_category"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:gravity="center"-->
-<!--        android:orientation="horizontal"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/tv_expense_category">-->
-
-<!--        <LinearLayout-->
-<!--            android:id="@+id/ll_category"-->
-<!--            android:layout_width="409dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_margin="10dp"-->
-<!--            android:layout_marginTop="12dp"-->
-<!--            android:gravity="center"-->
-<!--            android:orientation="horizontal">-->
-
-<!--            <Button-->
-<!--                android:id="@+id/button_food"-->
-<!--                android:layout_width="100dp"-->
-<!--                android:layout_height="100dp"-->
-<!--                android:layout_margin="10dp"-->
-<!--                android:backgroundTint="#E16F54"-->
-<!--                android:text="Food"-->
-<!--                android:textAppearance="?android:textAppearanceMedium"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/tv_expense_category" />-->
-
-<!--            <Button-->
-<!--                android:id="@+id/button_clothes"-->
-<!--                android:layout_width="100dp"-->
-<!--                android:layout_height="100dp"-->
-<!--                android:layout_margin="10dp"-->
-<!--                android:backgroundTint="#E16F54"-->
-<!--                android:text="Clothes"-->
-<!--                android:textAppearance="?android:textAppearanceMedium"-->
-<!--                app:layout_constraintStart_toEndOf="@id/button_food"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/tv_expense_category" />-->
-
-<!--            <Button-->
-<!--                android:id="@+id/button_education"-->
-<!--                android:layout_width="100dp"-->
-<!--                android:layout_height="100dp"-->
-<!--                android:layout_margin="10dp"-->
-<!--                android:backgroundTint="#E16F54"-->
-<!--                android:text="Education"-->
-<!--                android:textAppearance="?android:textAppearanceMedium"-->
-<!--                app:layout_constraintStart_toEndOf="@id/button_clothes"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/tv_expense_category" />-->
-<!--        </LinearLayout>-->
-<!--    </RadioGroup>-->
-<!--    <ListView-->
-<!--        android:id="@+id/lv_category_list"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/tv_expense_category"-->
-<!--        >-->
-<!--    </ListView>-->

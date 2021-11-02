@@ -23,14 +23,18 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.Date;
 import java.util.Vector;
 
 public class IncomeFragment extends Fragment {
 
+    Date d = java.util.Calendar.getInstance().getTime();
     InputDataBaseHelper dbHelper;
-    Vector<Input> incomes = new Vector<>();
     Integer amount = 0;
     String category = "";
+    Integer date = d.getDate();
+    Integer month = d.getMonth() + 1;
+    Integer year = d.getYear() + 1900;
 
     @Nullable
     @Override
@@ -49,13 +53,17 @@ public class IncomeFragment extends Fragment {
 
         getCategoryChoice(categoryField);
 
+        enter(enterButton, amountField);
+
+    }
+
+    public void enter(Button enterButton, EditText amountField){
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 clearAllFocus(amountField);
                 if(amount != 0){
-                    String show = amount + " " + category;
-                    addToList();
+                    String show = amount + " " + " " + category + " " + date + "/" + month + "/" + year;
                     addToDB();
                     reInit(amountField);
                     Toast.makeText(IncomeFragment.super.getContext(), show, Toast.LENGTH_SHORT).show();
@@ -66,16 +74,11 @@ public class IncomeFragment extends Fragment {
                 }
             }
         });
-
     }
-
     public void addToDB(){
-        dbHelper.addInput(new Input(amount, category,2));
+        dbHelper.addInput2(new Input(amount, category,2),date, month, year);
     }
 
-    public void addToList(){
-        incomes.add(new Input(amount, category,2));
-    }
 
     public void clearAllFocus(EditText amountField){
         amountField.clearFocus();

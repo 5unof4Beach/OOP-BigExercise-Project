@@ -30,23 +30,24 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.Date;
 import java.util.Vector;
 
 public class ExpenseFragmnet extends Fragment {
+    Date d = java.util.Calendar.getInstance().getTime();
     InputDataBaseHelper dbHelper;
-    Vector<Input> expenses = new Vector<>();
     Integer amount = 0;
-    Integer date = 1;
-    Integer month = 1;
     String category = "";
     String note = "";
+    Integer date = d.getDate();
+    Integer month = d.getMonth() + 1;
+    Integer year = d.getYear() + 1900;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         dbHelper = new InputDataBaseHelper(getContext());
         View view = inflater.inflate(R.layout.fragment_expense, container, false);
-//        initView(view);
         return view;
     }
 
@@ -78,7 +79,7 @@ public class ExpenseFragmnet extends Fragment {
             public void onClick(View view) {
                 clearAllFocus(noteField, amountField,dateField,monthField);
                 if(amount != 0){
-                    String show = amount + " " + note + " " + category + " " + date + "/" + month;
+                    String show = amount + " " + note + " " + category + " " + date + "/" + month + "/" + year;
                     addToDB();
                     reInit(noteField, amountField);
                     Toast.makeText(ExpenseFragmnet.super.getContext(), show, Toast.LENGTH_SHORT).show();
@@ -91,13 +92,9 @@ public class ExpenseFragmnet extends Fragment {
         });
     }
 
-    public void addToList(){
-        expenses.add(new Input(amount, note, category,1));
-    }
 
     public void addToDB(){
-//        dbHelper.addInput(new Input(amount, note, category,1));
-        dbHelper.addInput2(new Input(amount, note, category,1),date, month);
+        dbHelper.addInput2(new Input(amount, note, category,1),date, month, year);
     }
 
 

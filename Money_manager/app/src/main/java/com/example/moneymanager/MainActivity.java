@@ -22,10 +22,9 @@ import java.util.Vector;
 public class MainActivity extends AppCompatActivity {
 
     InputDataBaseHelper dbHelper;
-    Vector<Input> expenses = new Vector<>();
-    public Vector<Input> inputs = new Vector<>();
     InputScreenFragment inputScreenFragment = new InputScreenFragment();
     SummaryFragment summaryFragment = new SummaryFragment();
+    ReportFragment reportFragment = new ReportFragment();
     boolean isInInputScreen = true;
 
     @Override
@@ -37,28 +36,39 @@ public class MainActivity extends AppCompatActivity {
         dbHelper = new InputDataBaseHelper(this);
         Button inputScreenButton = (Button)findViewById(R.id.button_input_page);
         Button summaryScreenButton = (Button)findViewById(R.id.button_summary_page);
+        Button reportScreenButton = (Button)findViewById(R.id.button_report_page);
 
+        chooseScreen(reportScreenButton, summaryScreenButton, inputScreenButton);
+    }
+
+    public void chooseScreen(Button reportScreenButton, Button summaryScreenButton, Button inputScreenButton){
         inputScreenButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!isInInputScreen){
+//                if(!isInInputScreen){
                     replaceFragmentContent(inputScreenFragment);
                     isInInputScreen = true;
-                }
+//                }
             }
         });
 
         summaryScreenButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                dbHelper.getAllInput();
-                if(isInInputScreen){
+//                if(isInInputScreen){
                     replaceFragmentContent(summaryFragment);
-//                    replaceFragmentContent(new SummaryFragment());
                     isInInputScreen = false;
-                }
+//                }
             }
         });
+
+        reportScreenButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                replaceFragmentContent(reportFragment);
+            }
+        });
+
     }
 
     private void initFragment(){
