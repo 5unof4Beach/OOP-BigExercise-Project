@@ -55,8 +55,6 @@ public class ExpenseFragmnet extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
         EditText amountField = (EditText) view.findViewById(R.id.et_expense_amount);
         EditText noteField = (EditText) view.findViewById(R.id.et_note);
-        EditText dateField = (EditText) view.findViewById(R.id.et_day);
-        EditText monthField = (EditText) view.findViewById(R.id.et_month);
         RadioGroup categoryField = (RadioGroup) view.findViewById(R.id.rg_category);
         Button enterButton = (Button) view.findViewById(R.id.enter_button);
 
@@ -64,20 +62,17 @@ public class ExpenseFragmnet extends Fragment {
 
         getNote(noteField);
 
-        getDate(dateField);
-
-        getMonth(monthField);
 
         getCategoryChoice(categoryField);
 
-        enter(enterButton,amountField,noteField,dateField,monthField);
+        enter(enterButton,amountField,noteField);
     }
 
-    public void enter(Button enterButton, EditText amountField, EditText noteField, EditText dateField, EditText monthField){
+    public void enter(Button enterButton, EditText amountField, EditText noteField){
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                clearAllFocus(noteField, amountField,dateField,monthField);
+                clearAllFocus(noteField, amountField);
                 if(amount != 0){
                     String show = amount + " " + note + " " + category + " " + date + "/" + month + "/" + year;
                     addToDB();
@@ -98,11 +93,9 @@ public class ExpenseFragmnet extends Fragment {
     }
 
 
-    public void clearAllFocus(EditText noteField, EditText amountField, EditText dateField, EditText monthField){
+    public void clearAllFocus(EditText noteField, EditText amountField){
         noteField.clearFocus();
         amountField.clearFocus();
-        dateField.clearFocus();
-        monthField.clearFocus();
     }
 
     public void reInit(EditText noteField, EditText amountField){

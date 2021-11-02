@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CalendarView;
 import android.widget.DatePicker;
 
 import androidx.annotation.NonNull;
@@ -18,8 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.moneymanager.data.InputDataBaseHelper;
 import com.example.moneymanager.mainprocess.Input;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.Vector;
 
 public class ReportFragment extends Fragment {
@@ -57,6 +54,7 @@ public class ReportFragment extends Fragment {
                 month = datePicker.getMonth()+1;
                 year = datePicker.getYear();
                 list = dbHelper.getAllInput(date, month, year);
+                list.sort(((input, t1) -> Long.compare(input.getType(),t1.getType())));
                 show(rv_input_Items);
                 print(String.format("%d/%d/%d",date,month,year));
             }

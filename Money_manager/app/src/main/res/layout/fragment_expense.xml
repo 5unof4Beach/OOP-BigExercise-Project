@@ -42,33 +42,7 @@
         android:textCursorDrawable="@color/orange"
         app:layout_constraintTop_toBottomOf="@id/et_expense_amount"
         />
-    <LinearLayout
-        android:id="@+id/ll_date_and_month"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal"
 
-        app:layout_constraintTop_toBottomOf="@+id/et_note">
-        <EditText
-            android:id="@+id/et_day"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:hint="enter date"
-            >
-
-        </EditText>
-        <EditText
-            android:id="@+id/et_month"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:hint="enter month"
-            >
-
-        </EditText>
-    </LinearLayout>
     <TextView
         android:id="@+id/tv_expense_category"
         android:layout_width="wrap_content"
@@ -79,7 +53,7 @@
         android:textAppearance="?android:textAppearanceLarge"
         app:layout_constraintLeft_toLeftOf="parent"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/ll_date_and_month" />
+        app:layout_constraintTop_toBottomOf="@id/et_note" />
 
 
     <LinearLayout
