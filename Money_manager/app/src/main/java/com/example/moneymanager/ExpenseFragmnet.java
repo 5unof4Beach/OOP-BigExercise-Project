@@ -122,7 +122,6 @@ public class ExpenseFragmnet extends Fragment {
                 String temp = et.getText().toString();
                 if(!temp.equals("")){
                     amount = Integer.parseInt(temp);
-                    Log.v("amount","added");
                 }
 
             }

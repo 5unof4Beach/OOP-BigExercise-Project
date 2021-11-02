@@ -43,15 +43,14 @@ public class SummaryFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
+        rv_expense_Items = (RecyclerView) getView().findViewById(R.id.rv_expense_summary);
         EditText etDate = (EditText) view.findViewById(R.id.et_summary_date);
         EditText etMonth = (EditText) view.findViewById(R.id.et_summary_month);
         Button enterButton = (Button) view.findViewById(R.id.button_summary_enter);
+
         getDate(etDate);
         getMonth(etMonth);
         enter(enterButton, etDate, etMonth);
-
-        rv_expense_Items = (RecyclerView) getView().findViewById(R.id.rv_expense_summary);
-        show(rv_expense_Items);
     }
 
     public void show(RecyclerView rv){
@@ -67,6 +66,9 @@ public class SummaryFragment extends Fragment {
             public void onClick(View view) {
                 clearAllFocus(et_date, et_month);
                 list  = dbHelper.getAllInput(date, month);
+                date = 0;
+                month = 0;
+                show(rv_expense_Items);
             }
         });
     }

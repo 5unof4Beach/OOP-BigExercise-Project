@@ -96,24 +96,31 @@ public class InputDataBaseHelper extends SQLiteOpenHelper {
     }
 
     private void getQueryAndArgs(int date, int month){
-        query = String.format("select * from %s where month = ? and date = ?",INPUT_TABLE);;
+        query = String.format("select * from %s where month = ? and day = ?",INPUT_TABLE);;
         selectionArgs = new String[]{String.format("%s",month), String.format("%s",date)};
         if(month == 0 && date !=0){
-            query = String.format("select * from %s where date = ?",INPUT_TABLE);
+            query = String.format("select * from %s where day = ?",INPUT_TABLE);
             selectionArgs = new String[]{String.format("%s",date)};
+            print("month == 0 && date != 0");
         }
         else if(month != 0 && date == 0){
             query = String.format("select * from %s where month = ?",INPUT_TABLE);
             selectionArgs = new String[]{String.format("%s",month)};
+            print("month != 0 && date == 0");
         }
         else if(month == 0 && date == 0){
             query = String.format("select * from %s",INPUT_TABLE);
             selectionArgs = null;
+            print("month == 0 && date == 0");
         }
     }
 
     private void getDefaultQueryAndArgs(int date, int month){
         query = String.format("select * from %s",INPUT_TABLE);
         selectionArgs = null;
+    }
+
+    private void print(String s){
+        System.out.println(s);
     }
 }

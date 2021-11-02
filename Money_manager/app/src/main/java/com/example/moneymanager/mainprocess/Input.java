@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import java.io.Serializable;
 
 public class Input implements Serializable {
-    private long amount,type;
+    private long amount, type, date, month, year;
     private String note = "", category="";
 
     public Input(int amount, String note, String category, int type) {
