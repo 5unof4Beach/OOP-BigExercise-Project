@@ -36,6 +36,8 @@ public class ExpenseFragmnet extends Fragment {
     InputDataBaseHelper dbHelper;
     Vector<Input> expenses = new Vector<>();
     Integer amount = 0;
+    Integer date = 1;
+    Integer month = 1;
     String category = "";
     String note = "";
 
@@ -52,6 +54,8 @@ public class ExpenseFragmnet extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
         EditText amountField = (EditText) view.findViewById(R.id.et_expense_amount);
         EditText noteField = (EditText) view.findViewById(R.id.et_note);
+        EditText dateField = (EditText) view.findViewById(R.id.et_day);
+        EditText monthField = (EditText) view.findViewById(R.id.et_month);
         RadioGroup categoryField = (RadioGroup) view.findViewById(R.id.rg_category);
         Button enterButton = (Button) view.findViewById(R.id.enter_button);
 
@@ -59,14 +63,18 @@ public class ExpenseFragmnet extends Fragment {
 
         getNote(noteField);
 
+        getDate(dateField);
+
+        getMonth(monthField);
+
         getCategoryChoice(categoryField);
 
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                clearAllFocus(noteField, amountField);
+                clearAllFocus(noteField, amountField,dateField,monthField);
                 if(amount != 0){
-                    String show = amount + " " + note + " " + category;
+                    String show = amount + " " + note + " " + category + " " + date + "/" + month;
 //                    addToList();
 //                    writeUserInputToFile();
                     addToDB();
@@ -96,13 +104,16 @@ public class ExpenseFragmnet extends Fragment {
     }
 
     public void addToDB(){
-        dbHelper.addInput(new Input(amount, note, category,1));
+//        dbHelper.addInput(new Input(amount, note, category,1));
+        dbHelper.addInput2(new Input(amount, note, category,1),date, month);
     }
 
 
-    public void clearAllFocus(EditText noteField, EditText amountField){
+    public void clearAllFocus(EditText noteField, EditText amountField, EditText dateField, EditText monthField){
         noteField.clearFocus();
         amountField.clearFocus();
+        dateField.clearFocus();
+        monthField.clearFocus();
     }
 
     public void reInit(EditText noteField, EditText amountField){
@@ -119,6 +130,32 @@ public class ExpenseFragmnet extends Fragment {
                 if(!temp.equals("")){
                     amount = Integer.parseInt(temp);
                     Log.v("amount","added");
+                }
+
+            }
+        });
+    }
+
+    public void getDate(EditText amountField){
+        amountField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                String temp = amountField.getText().toString();
+                if(!temp.equals("")){
+                    date = Integer.parseInt(temp);
+                }
+
+            }
+        });
+    }
+
+    public void getMonth(EditText amountField){
+        amountField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                String temp = amountField.getText().toString();
+                if(!temp.equals("")){
+                    month = Integer.parseInt(temp);
                 }
 
             }

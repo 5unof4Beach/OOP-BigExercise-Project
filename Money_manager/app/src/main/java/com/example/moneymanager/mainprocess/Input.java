@@ -1,5 +1,7 @@
 package com.example.moneymanager.mainprocess;
 
+import androidx.annotation.NonNull;
+
 import java.io.Serializable;
 
 public class Input implements Serializable {
@@ -32,5 +34,10 @@ public class Input implements Serializable {
 
     public long getType() {
         return type;
+    }
+
+    @Override
+    public String toString(){
+        return String.format("%d %s %s", amount,note,category);
     }
 }
