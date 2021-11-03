@@ -41,6 +41,7 @@ public class ReportFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
         rv_input_Items = (RecyclerView) getView().findViewById(R.id.rv_report_input_summary);
         DatePicker datePicker = (DatePicker) view.findViewById(R.id.datePicker);
+        init(datePicker);
         pickDate(datePicker);
     }
 
@@ -68,7 +69,18 @@ public class ReportFragment extends Fragment {
         rv.setAdapter(new SummaryAdapter(list, this.getContext()));
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void init(DatePicker datePicker){
+        date = datePicker.getDayOfMonth();
+        month = datePicker.getMonth()+1;
+        year = datePicker.getYear();
+        list = dbHelper.getAllInput(date, month, year);
+        list.sort(((input, t1) -> Long.compare(input.getType(),t1.getType())));
+        show(rv_input_Items);
+    }
+
     private void print(String s){
         System.out.println(s);
     }
+
 }

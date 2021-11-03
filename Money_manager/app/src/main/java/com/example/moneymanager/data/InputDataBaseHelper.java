@@ -76,7 +76,7 @@ public class InputDataBaseHelper extends SQLiteOpenHelper {
         getDefaultQueryAndArgs(date, month, year);
 //        getAllQuery();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(query,selectionArgs);
+        Cursor cursor = db.rawQuery(query,null);
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
             Input input = new Input(cursor.getInt(3),cursor.getString(4),cursor.getString(5),cursor.getInt(6));
@@ -86,7 +86,25 @@ public class InputDataBaseHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         db.close();
-//        System.out.println(inputs.get(1));
+        return inputs;
+    }
+
+    public Vector<Input> getMonthlyInput(int date, int month, int year){
+        Vector<Input> inputs = new Vector<>();
+
+        query = String.format("select * from %s where month = %d and year = %d",INPUT_TABLE,month,year);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query,null);
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            Input input = new Input(cursor.getInt(3),cursor.getString(4),cursor.getString(5),cursor.getInt(6));
+            setTimeForInput(input, cursor);
+            inputs.add(input);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        db.close();
         return inputs;
     }
 
@@ -115,8 +133,7 @@ public class InputDataBaseHelper extends SQLiteOpenHelper {
         selectionArgs = null;
     }
     private void getDefaultQueryAndArgs(int date, int month, int year){
-        query = String.format("select * from %s where month = ? and day = ? and year = ?",INPUT_TABLE);
-        selectionArgs = new String[]{String.format("%s",month), String.format("%s",date), String.format("%s",year)};
+        query = String.format("select * from %s where month = %d and day = %d and year = %d",INPUT_TABLE,month,date,year);
     }
 
     private void print(String s){
