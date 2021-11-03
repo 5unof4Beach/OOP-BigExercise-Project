@@ -62,7 +62,7 @@ public class ReportFragment extends Fragment {
         });
     }
 
-    public void show(RecyclerView rv){
+    private void show(RecyclerView rv){
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
         rv.setLayoutManager(layoutManager);
         rv.hasFixedSize();

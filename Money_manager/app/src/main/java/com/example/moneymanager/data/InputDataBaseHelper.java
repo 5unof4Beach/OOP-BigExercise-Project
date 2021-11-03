@@ -5,9 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.Toast;
-
-import androidx.annotation.Nullable;
 
 import com.example.moneymanager.mainprocess.Input;
 
@@ -72,9 +69,7 @@ public class InputDataBaseHelper extends SQLiteOpenHelper {
     public Vector<Input> getAllInput(int date, int month, int year){
         Vector<Input> inputs = new Vector<>();
 
-//        getQueryAndArgs(date, month, year);
         getDefaultQueryAndArgs(date, month, year);
-//        getAllQuery();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query,null);
         cursor.moveToFirst();
@@ -109,28 +104,23 @@ public class InputDataBaseHelper extends SQLiteOpenHelper {
     }
 
     private void getQueryAndArgs(int date, int month, int year){
-        query = String.format("select * from %s where month = ? and day = ?",INPUT_TABLE);
-        selectionArgs = new String[]{String.format("%s",month), String.format("%s",date)};
+        query = String.format("select * from %s where month = %d and day = %d",INPUT_TABLE, month, date);
         if(month == 0 && date !=0){
-            query = String.format("select * from %s where day = ?",INPUT_TABLE);
-            selectionArgs = new String[]{String.format("%s",date)};
+            query = String.format("select * from %s where day = %d",INPUT_TABLE, date);
             print("month == 0 && date != 0");
         }
         else if(month != 0 && date == 0){
-            query = String.format("select * from %s where month = ?",INPUT_TABLE);
-            selectionArgs = new String[]{String.format("%s",month)};
+            query = String.format("select * from %s where month = %d",INPUT_TABLE, month);
             print("month != 0 && date == 0");
         }
         else if(month == 0 && date == 0){
             query = String.format("select * from %s",INPUT_TABLE);
-            selectionArgs = null;
             print("month == 0 && date == 0");
         }
     }
 
     private void getAllQuery(){
         query = String.format("select * from %s",INPUT_TABLE);
-        selectionArgs = null;
     }
     private void getDefaultQueryAndArgs(int date, int month, int year){
         query = String.format("select * from %s where month = %d and day = %d and year = %d",INPUT_TABLE,month,date,year);

@@ -50,7 +50,7 @@ public class IncomeFragment extends Fragment {
 
     }
 
-    public void enter(Button enterButton, EditText amountField){
+    private void enter(Button enterButton, EditText amountField){
         enterButton.setOnClickListener(view -> {
             clearAllFocus(amountField);
             if(amount != 0){
@@ -65,20 +65,20 @@ public class IncomeFragment extends Fragment {
             }
         });
     }
-    public void addToDB(){
+    private void addToDB(){
         dbHelper.addInput2(new Input(amount, category,2),date, month, year);
     }
 
 
-    public void clearAllFocus(EditText amountField){
+    private void clearAllFocus(EditText amountField){
         amountField.clearFocus();
     }
 
-    public void reInit(EditText amountField){
+    private void reInit(EditText amountField){
         amountField.setText("");
         amount = 0;
     }
-    public void getAmount(EditText amountField){
+    private void getAmount(EditText amountField){
         amountField.setOnFocusChangeListener((view, b) -> {
             String temp = amountField.getText().toString();
             if(!temp.equals("")){
@@ -98,7 +98,7 @@ public class IncomeFragment extends Fragment {
 //        });
 //    }
 
-    public void getCategoryChoice(RadioGroup categoryField){
+    private void getCategoryChoice(RadioGroup categoryField){
         int id = categoryField.getCheckedRadioButtonId();
         RadioButton button = (RadioButton) getView().findViewById(id);
         category = button.getText().toString();

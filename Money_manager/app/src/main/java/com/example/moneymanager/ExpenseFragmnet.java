@@ -68,7 +68,7 @@ public class ExpenseFragmnet extends Fragment {
         enter(enterButton,amountField,noteField);
     }
 
-    public void enter(Button enterButton, EditText amountField, EditText noteField){
+    private void enter(Button enterButton, EditText amountField, EditText noteField){
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,24 +88,24 @@ public class ExpenseFragmnet extends Fragment {
     }
 
 
-    public void addToDB(){
+    private void addToDB(){
         dbHelper.addInput2(new Input(amount, note, category,1),date, month, year);
     }
 
 
-    public void clearAllFocus(EditText noteField, EditText amountField){
+    private void clearAllFocus(EditText noteField, EditText amountField){
         noteField.clearFocus();
         amountField.clearFocus();
     }
 
-    public void reInit(EditText noteField, EditText amountField){
+    private void reInit(EditText noteField, EditText amountField){
         amountField.setText("");
         noteField.setText("");
         amount = 0;
         note = "";
     }
 
-    public void getAmount(EditText et){
+    private void getAmount(EditText et){
         et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
@@ -118,7 +118,7 @@ public class ExpenseFragmnet extends Fragment {
         });
     }
 
-    public void getDate(EditText et){
+    private void getDate(EditText et){
         et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
@@ -131,7 +131,7 @@ public class ExpenseFragmnet extends Fragment {
         });
     }
 
-    public void getMonth(EditText et){
+    private void getMonth(EditText et){
         et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
@@ -144,7 +144,7 @@ public class ExpenseFragmnet extends Fragment {
         });
     }
 
-    public void getNote(EditText et){
+    private void getNote(EditText et){
         et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
@@ -153,7 +153,7 @@ public class ExpenseFragmnet extends Fragment {
         });
     }
 
-    public void getCategoryChoice(RadioGroup categoryField){
+    private void getCategoryChoice(RadioGroup categoryField){
         int id = categoryField.getCheckedRadioButtonId();
         RadioButton button = (RadioButton) getView().findViewById(id);
         category = button.getText().toString();

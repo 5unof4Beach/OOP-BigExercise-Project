@@ -1,6 +1,5 @@
 package com.example.moneymanager.mainprocess;
 
-import androidx.annotation.NonNull;
 
 import java.io.Serializable;
 
@@ -36,6 +35,16 @@ public class Input implements Serializable {
         return type;
     }
 
+    public long getDate() { return date; }
+
+    public long getMonth() {
+        return month;
+    }
+
+    public long getYear() {
+        return year;
+    }
+
     public void setDate(long date) {
         this.date = date;
     }
@@ -48,17 +57,6 @@ public class Input implements Serializable {
         this.year = year;
     }
 
-    public long getDate() {
-        return date;
-    }
-
-    public long getMonth() {
-        return month;
-    }
-
-    public long getYear() {
-        return year;
-    }
 
     @Override
     public String toString(){

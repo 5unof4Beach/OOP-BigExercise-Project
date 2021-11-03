@@ -103,14 +103,14 @@ public class SummaryFragment extends Fragment {
     }
 
 
-    public void show(RecyclerView rv){
+    private void show(RecyclerView rv){
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
         rv.setLayoutManager(layoutManager);
         rv.hasFixedSize();
         rv.setAdapter(new SummaryAdapter(list, this.getContext()));
     }
 
-    public void enter(Button button,EditText et_date, EditText et_month, EditText et_year){
+    private void enter(Button button,EditText et_date, EditText et_month, EditText et_year){
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -125,7 +125,7 @@ public class SummaryFragment extends Fragment {
         });
     }
 
-    public void clearAllFocus(EditText date, EditText month, EditText year){
+    private void clearAllFocus(EditText date, EditText month, EditText year){
         date.clearFocus();
         date.setText("");
         month.clearFocus();
@@ -134,28 +134,28 @@ public class SummaryFragment extends Fragment {
         year.setText("");
     }
 
-    public void getDate(EditText et){
+    private void getDate(EditText et){
         et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
                 String temp = et.getText().toString();
                 if(!temp.equals("")){
                     date = Integer.parseInt(temp);
-                    Log.v("amount","added");
+                    Log.v("Input","entered");
                 }
 
             }
         });
     }
 
-    public void getMonth(EditText et){
+    private void getMonth(EditText et){
         et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
                 String temp = et.getText().toString();
                 if(!temp.equals("")){
                     month = Integer.parseInt(temp);
-                    Log.v("amount","added");
+                    Log.v("Input","entered");
                 }
 
             }
@@ -169,7 +169,7 @@ public class SummaryFragment extends Fragment {
                 String temp = et.getText().toString();
                 if(!temp.equals("")){
                     year = Integer.parseInt(temp);
-                    Log.v("amount","added");
+                    Log.v("Input","entered");
                 }
 
             }
