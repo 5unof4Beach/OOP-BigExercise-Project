@@ -14,10 +14,12 @@
         >
         <EditText
             android:id="@+id/et_summary_date"
-            android:layout_width="100dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="Date"
             android:inputType="number"
+            android:backgroundTint="@color/gray"
+            android:textCursorDrawable="@color/gray"
             >
 
         </EditText>
@@ -28,6 +30,8 @@
             android:layout_height="wrap_content"
             android:inputType="number"
             android:hint="Month"
+            android:backgroundTint="@color/gray"
+            android:textCursorDrawable="@color/gray"
             >
 
         </EditText>
@@ -38,6 +42,8 @@
             android:layout_height="wrap_content"
             android:hint="Year"
             android:inputType="number"
+            android:backgroundTint="@color/gray"
+            android:textCursorDrawable="@color/gray"
             >
 
         </EditText>
