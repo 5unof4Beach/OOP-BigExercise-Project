@@ -35,6 +35,7 @@ public class SummaryFragment extends Fragment {
 
     PieChart pieChart;
     private RecyclerView rv_input_Items;
+    private RecyclerView rv_income_Items;
     Vector<Input> list = new Vector<>();
     private int date = 0;
     private int month = 0;
@@ -51,6 +52,7 @@ public class SummaryFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
         rv_input_Items = (RecyclerView) getView().findViewById(R.id.rv_expense_summary);
+        rv_income_Items = (RecyclerView) getView().findViewById(R.id.rv_income_summary);
         EditText etDate = (EditText) view.findViewById(R.id.et_summary_date);
         EditText etMonth = (EditText) view.findViewById(R.id.et_summary_month);
         EditText etYear = (EditText) view.findViewById(R.id.et_summary_year);
@@ -91,8 +93,8 @@ public class SummaryFragment extends Fragment {
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(10);
 
-        colors.add(Color.rgb(26,102,255));
-        colors.add(Color.rgb(225,111,84));
+        colors.add(Color.rgb(225,111,84)); // Orange
+        colors.add(Color.rgb(26,102,255)); //Blue
         pieDataSet.setColors(colors);
 
         PieData pieData = new PieData(pieDataSet);
@@ -103,11 +105,28 @@ public class SummaryFragment extends Fragment {
     }
 
 
-    private void show(RecyclerView rv){
+    private void show(RecyclerView rv, RecyclerView rv2){
+        Vector<Input> expenses = new Vector<>();
+        Vector<Input> incomes = new Vector<>();
+
+        for(Input i :list){
+            if(i.getType() == 1){
+                expenses.add(i);
+            }
+            else {
+                incomes.add(i);
+            }
+        }
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
         rv.setLayoutManager(layoutManager);
         rv.hasFixedSize();
-        rv.setAdapter(new SummaryAdapter(list, this.getContext()));
+        rv.setAdapter(new SummaryAdapter(expenses, this.getContext()));
+
+        LinearLayoutManager layoutManager2 = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
+        rv2.setLayoutManager(layoutManager2);
+        rv2.hasFixedSize();
+        rv2.setAdapter(new SummaryAdapter(incomes, this.getContext()));
     }
 
     private void enter(Button button,EditText et_date, EditText et_month, EditText et_year){
@@ -119,7 +138,7 @@ public class SummaryFragment extends Fragment {
                 list  = dbHelper.getMonthlyInput(date, month, year);
                 date = 0;
                 month = 0;
-                show(rv_input_Items);
+                show(rv_input_Items, rv_income_Items);
                 addDataToPieChart();
             }
         });

@@ -34,12 +34,13 @@
             />
     </LinearLayout>
 
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/fl_input_page_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/ll_option_buttons"
         >
-    </FrameLayout>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
