@@ -40,7 +40,6 @@ public class SummaryAdapter extends RecyclerView.Adapter<SummaryAdapter.DataView
     @Override
     public void onBindViewHolder(@NonNull SummaryAdapter.DataViewHolder holder, int position) {
         Input temp = list.get(position);
-//        String show = temp.getAmount() + " " + temp.getNote() + " " +  temp.getCategory();
         String show = String.format("%s\n %s\n %s\n %d/%d/%d", temp.getCategory(), temp.getAmount(), temp.getNote(), temp.getDate(), temp.getMonth(),temp.getYear());
         holder.tvName.setText(show);
     }
@@ -63,7 +62,7 @@ public class SummaryAdapter extends RecyclerView.Adapter<SummaryAdapter.DataView
         private TextView tvName;
         public DataViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvName = (TextView) itemView.findViewById(R.id.tv_summary_item_name);
+            tvName = itemView.findViewById(R.id.tv_summary_item_name);
         }
     }
 }

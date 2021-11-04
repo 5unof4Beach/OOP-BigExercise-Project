@@ -2,38 +2,24 @@ package com.example.moneymanager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.widget.TextViewOnReceiveContentListener;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.moneymanager.data.InputDataBaseHelper;
 import com.example.moneymanager.mainprocess.Input;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.Date;
-import java.util.Vector;
 
-public class ExpenseFragmnet extends Fragment {
+public class ExpenseFragment extends Fragment {
     Date d = java.util.Calendar.getInstance().getTime();
     InputDataBaseHelper dbHelper;
     Integer amount = 0;
@@ -47,42 +33,38 @@ public class ExpenseFragmnet extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         dbHelper = new InputDataBaseHelper(getContext());
-        View view = inflater.inflate(R.layout.fragment_expense, container, false);
-        return view;
+        return inflater.inflate(R.layout.fragment_expense, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
-        EditText amountField = (EditText) view.findViewById(R.id.et_expense_amount);
-        EditText noteField = (EditText) view.findViewById(R.id.et_note);
-        RadioGroup categoryField = (RadioGroup) view.findViewById(R.id.rg_category);
-        Button enterButton = (Button) view.findViewById(R.id.enter_button);
+        EditText amountField = view.findViewById(R.id.et_expense_amount);
+        EditText noteField = view.findViewById(R.id.et_note);
+        RadioGroup categoryField = view.findViewById(R.id.rg_category);
+        Button enterButton = view.findViewById(R.id.enter_button);
 
         getAmount(amountField);
 
         getNote(noteField);
 
 
-        getCategoryChoice(categoryField);
+        getCategoryChoice(categoryField, view);
 
         enter(enterButton,amountField,noteField);
     }
 
     private void enter(Button enterButton, EditText amountField, EditText noteField){
-        enterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                clearAllFocus(noteField, amountField);
-                if(amount != 0){
-                    String show = amount + " " + note + " " + category + " " + date + "/" + month + "/" + year;
-                    addToDB();
-                    reInit(noteField, amountField);
-                    Toast.makeText(ExpenseFragmnet.super.getContext(), show, Toast.LENGTH_SHORT).show();
-//                    Toast.makeText(ExpenseFragmnet.super.getContext(), "New Expense Added", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    Toast.makeText(ExpenseFragmnet.super.getContext(), "Please Enter Amount", Toast.LENGTH_SHORT).show();
-                }
+        enterButton.setOnClickListener(view -> {
+            clearAllFocus(noteField, amountField);
+            if(amount != 0){
+                String show = amount + " " + note + " " + category + " " + date + "/" + month + "/" + year;
+                addToDB();
+                reInit(noteField, amountField);
+                Toast.makeText(ExpenseFragment.super.getContext(), show, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ExpenseFragment.super.getContext(), "New Expense Added", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Toast.makeText(ExpenseFragment.super.getContext(), "Please Enter Amount", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -106,64 +88,47 @@ public class ExpenseFragmnet extends Fragment {
     }
 
     private void getAmount(EditText et){
-        et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                String temp = et.getText().toString();
-                if(!temp.equals("")){
-                    amount = Integer.parseInt(temp);
-                }
-
+        et.setOnFocusChangeListener((view, b) -> {
+            String temp = et.getText().toString();
+            if(!temp.equals("")){
+                amount = Integer.parseInt(temp);
             }
+
         });
     }
 
     private void getDate(EditText et){
-        et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                String temp = et.getText().toString();
-                if(!temp.equals("")){
-                    date = Integer.parseInt(temp);
-                }
-
+        et.setOnFocusChangeListener((view, b) -> {
+            String temp = et.getText().toString();
+            if(!temp.equals("")){
+                date = Integer.parseInt(temp);
             }
+
         });
     }
 
     private void getMonth(EditText et){
-        et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                String temp = et.getText().toString();
-                if(!temp.equals("")){
-                    month = Integer.parseInt(temp);
-                }
-
+        et.setOnFocusChangeListener((view, b) -> {
+            String temp = et.getText().toString();
+            if(!temp.equals("")){
+                month = Integer.parseInt(temp);
             }
+
         });
     }
 
     private void getNote(EditText et){
-        et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                note = et.getText().toString();
-            }
-        });
+        et.setOnFocusChangeListener((view, b) -> note = et.getText().toString());
     }
 
-    private void getCategoryChoice(RadioGroup categoryField){
+    private void getCategoryChoice(RadioGroup categoryField, View view){
         int id = categoryField.getCheckedRadioButtonId();
-        RadioButton button = (RadioButton) getView().findViewById(id);
+        RadioButton button = view.findViewById(id);
         category = button.getText().toString();
-        categoryField.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                int id = categoryField.getCheckedRadioButtonId();
-                RadioButton button = (RadioButton) getView().findViewById(id);
-                category = button.getText().toString();
-            }
+        categoryField.setOnCheckedChangeListener((radioGroup, i) -> {
+            int id1 = categoryField.getCheckedRadioButtonId();
+            RadioButton button1 = view.findViewById(id1);
+            category = button1.getText().toString();
         });
     }
 

@@ -12,7 +12,6 @@ import java.util.Vector;
 
 public class InputDataBaseHelper extends SQLiteOpenHelper {
     public static final String INPUT_TABLE = "INPUT";
-    public static final String ID = "_id";
     public static final String YEAR = "year";
     public static final String MONTH = "month";
     public static final String DAY = "day";
@@ -25,7 +24,6 @@ public class InputDataBaseHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION  = 4;
 
     public static String query = "";
-    public static String[] selectionArgs = {""};
 
     public InputDataBaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

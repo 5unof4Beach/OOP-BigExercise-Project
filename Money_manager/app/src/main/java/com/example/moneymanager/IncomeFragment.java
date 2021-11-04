@@ -38,13 +38,13 @@ public class IncomeFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
-        EditText amountField = (EditText) view.findViewById(R.id.et_income_amount);
-        RadioGroup categoryField = (RadioGroup) view.findViewById(R.id.rg_category);
-        Button enterButton = (Button) view.findViewById(R.id.enter_button);
+        EditText amountField = view.findViewById(R.id.et_income_amount);
+        RadioGroup categoryField = view.findViewById(R.id.rg_category);
+        Button enterButton = view.findViewById(R.id.enter_button);
 
         getAmount(amountField);
 
-        getCategoryChoice(categoryField);
+        getCategoryChoice(categoryField, view);
 
         enter(enterButton, amountField);
 
@@ -98,13 +98,13 @@ public class IncomeFragment extends Fragment {
 //        });
 //    }
 
-    private void getCategoryChoice(RadioGroup categoryField){
+    private void getCategoryChoice(RadioGroup categoryField, View view){
         int id = categoryField.getCheckedRadioButtonId();
-        RadioButton button = (RadioButton) getView().findViewById(id);
+        RadioButton button = view.findViewById(id);
         category = button.getText().toString();
         categoryField.setOnCheckedChangeListener((radioGroup, i) -> {
             int id1 = categoryField.getCheckedRadioButtonId();
-            RadioButton button1 = (RadioButton) getView().findViewById(id1);
+            RadioButton button1 = view.findViewById(id1);
             category = button1.getText().toString();
         });
     }

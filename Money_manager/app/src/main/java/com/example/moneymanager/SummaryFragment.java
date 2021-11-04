@@ -22,12 +22,6 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.Vector;
 
 public class SummaryFragment extends Fragment {
@@ -51,14 +45,14 @@ public class SummaryFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
-        rv_input_Items = (RecyclerView) getView().findViewById(R.id.rv_expense_summary);
-        rv_income_Items = (RecyclerView) getView().findViewById(R.id.rv_income_summary);
-        EditText etDate = (EditText) view.findViewById(R.id.et_summary_date);
-        EditText etMonth = (EditText) view.findViewById(R.id.et_summary_month);
-        EditText etYear = (EditText) view.findViewById(R.id.et_summary_year);
-        Button enterButton = (Button) view.findViewById(R.id.button_summary_enter);
+        rv_input_Items = view.findViewById(R.id.rv_expense_summary);
+        rv_income_Items = view.findViewById(R.id.rv_income_summary);
+        EditText etDate = view.findViewById(R.id.et_summary_date);
+        EditText etMonth = view.findViewById(R.id.et_summary_month);
+        EditText etYear = view.findViewById(R.id.et_summary_year);
+        Button enterButton = view.findViewById(R.id.button_summary_enter);
 
-        pieChart = (PieChart) view.findViewById(R.id.pc_summary);
+        pieChart = view.findViewById(R.id.pc_summary);
 
 
         getDate(etDate);
@@ -130,17 +124,14 @@ public class SummaryFragment extends Fragment {
     }
 
     private void enter(Button button,EditText et_date, EditText et_month, EditText et_year){
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                clearAllFocus(et_date, et_month, et_year);
-                System.out.println(date + " " + month + " " + year);
-                list  = dbHelper.getMonthlyInput(date, month, year);
-                date = 0;
-                month = 0;
-                show(rv_input_Items, rv_income_Items);
-                addDataToPieChart();
-            }
+        button.setOnClickListener(view -> {
+            clearAllFocus(et_date, et_month, et_year);
+            System.out.println(date + " " + month + " " + year);
+            list  = dbHelper.getMonthlyInput(date, month, year);
+            date = 0;
+            month = 0;
+            show(rv_input_Items, rv_income_Items);
+            addDataToPieChart();
         });
     }
 
@@ -154,44 +145,35 @@ public class SummaryFragment extends Fragment {
     }
 
     private void getDate(EditText et){
-        et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                String temp = et.getText().toString();
-                if(!temp.equals("")){
-                    date = Integer.parseInt(temp);
-                    Log.v("Input","entered");
-                }
-
+        et.setOnFocusChangeListener((view, b) -> {
+            String temp = et.getText().toString();
+            if(!temp.equals("")){
+                date = Integer.parseInt(temp);
+                Log.v("Input","entered");
             }
+
         });
     }
 
     private void getMonth(EditText et){
-        et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                String temp = et.getText().toString();
-                if(!temp.equals("")){
-                    month = Integer.parseInt(temp);
-                    Log.v("Input","entered");
-                }
-
+        et.setOnFocusChangeListener((view, b) -> {
+            String temp = et.getText().toString();
+            if(!temp.equals("")){
+                month = Integer.parseInt(temp);
+                Log.v("Input","entered");
             }
+
         });
     }
 
     private void getYear(EditText et) {
-        et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                String temp = et.getText().toString();
-                if(!temp.equals("")){
-                    year = Integer.parseInt(temp);
-                    Log.v("Input","entered");
-                }
-
+        et.setOnFocusChangeListener((view, b) -> {
+            String temp = et.getText().toString();
+            if(!temp.equals("")){
+                year = Integer.parseInt(temp);
+                Log.v("Input","entered");
             }
+
         });
     }
 }
