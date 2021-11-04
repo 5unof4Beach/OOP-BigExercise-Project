@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.moneymanager.data.InputDataBaseHelper;
 import com.example.moneymanager.mainprocess.Input;
@@ -22,10 +23,13 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 
+import java.util.Date;
 import java.util.Vector;
 
 public class SummaryFragment extends Fragment {
     InputDataBaseHelper dbHelper;
+
+    private Date d = java.util.Calendar.getInstance().getTime();
 
     PieChart pieChart;
     private RecyclerView rv_input_Items;
@@ -126,12 +130,18 @@ public class SummaryFragment extends Fragment {
     private void enter(Button button,EditText et_date, EditText et_month, EditText et_year){
         button.setOnClickListener(view -> {
             clearAllFocus(et_date, et_month, et_year);
-            System.out.println(date + " " + month + " " + year);
-            list  = dbHelper.getMonthlyInput(date, month, year);
-            date = 0;
-            month = 0;
-            show(rv_input_Items, rv_income_Items);
-            addDataToPieChart();
+            if(month == 0 || year == 0 || month >12 || year > d.getYear() + 1900){
+                Toast.makeText(super.getContext(), "Please enter valid date and month", Toast.LENGTH_SHORT).show();
+                System.out.println(month + " " + year);
+            }
+            else{
+                System.out.println(date + " " + month + " " + year);
+                list  = dbHelper.getMonthlyInput(date, month, year);
+                date = 0;
+                month = 0;
+                show(rv_input_Items, rv_income_Items);
+                addDataToPieChart();
+            }
         });
     }
 
@@ -158,9 +168,9 @@ public class SummaryFragment extends Fragment {
     private void getMonth(EditText et){
         et.setOnFocusChangeListener((view, b) -> {
             String temp = et.getText().toString();
-            if(!temp.equals("")){
+            if(!temp.equals("") && temp.length()<=2){
                 month = Integer.parseInt(temp);
-                Log.v("Input","entered");
+                Log.v("Month",String.format("%d",month));
             }
 
         });
@@ -169,9 +179,9 @@ public class SummaryFragment extends Fragment {
     private void getYear(EditText et) {
         et.setOnFocusChangeListener((view, b) -> {
             String temp = et.getText().toString();
-            if(!temp.equals("")){
+            if(!temp.equals("") && temp.length()==4){
                 year = Integer.parseInt(temp);
-                Log.v("Input","entered");
+                Log.v("Year",String.format("%d",year));
             }
 
         });
