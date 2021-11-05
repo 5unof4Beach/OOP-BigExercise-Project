@@ -17,7 +17,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.moneymanager.data.InputDataBaseHelper;
-import com.example.moneymanager.mainprocess.Input;
+import com.example.moneymanager.repositories.Input;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;

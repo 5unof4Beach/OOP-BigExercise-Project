@@ -1,4 +1,4 @@
-package com.example.moneymanager.mainprocess;
+package com.example.moneymanager.repositories;
 
 
 import java.io.Serializable;

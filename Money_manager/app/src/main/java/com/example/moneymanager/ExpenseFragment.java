@@ -15,7 +15,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.moneymanager.data.InputDataBaseHelper;
-import com.example.moneymanager.mainprocess.Input;
+import com.example.moneymanager.repositories.Input;
 
 import java.util.Date;
 

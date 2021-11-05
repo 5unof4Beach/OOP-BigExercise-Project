@@ -1,6 +1,5 @@
 package com.example.moneymanager;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -11,13 +10,6 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.moneymanager.data.InputDataBaseHelper;
-import com.example.moneymanager.mainprocess.Input;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Vector;
 
 public class MainActivity extends AppCompatActivity {
 

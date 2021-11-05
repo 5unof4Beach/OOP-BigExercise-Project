@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.moneymanager.data.InputDataBaseHelper;
-import com.example.moneymanager.mainprocess.Input;
+import com.example.moneymanager.repositories.Input;
 
 import java.util.Vector;
 

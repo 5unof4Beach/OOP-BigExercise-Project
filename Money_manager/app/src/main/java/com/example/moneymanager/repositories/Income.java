@@ -1,4 +1,4 @@
-package com.example.moneymanager.mainprocess;
+package com.example.moneymanager.repositories;
 
 public class Income {
     private int amount;
