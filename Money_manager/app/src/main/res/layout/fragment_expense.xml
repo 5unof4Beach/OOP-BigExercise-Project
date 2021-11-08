@@ -17,18 +17,34 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/et_expense_amount"
+    <LinearLayout
+        android:id="@+id/ll_expense_and_currency"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:hint="Enter amount"
-        android:inputType="number"
-        android:backgroundTint="@color/orange"
-        android:textCursorDrawable="@color/orange"
-        app:layout_constraintTop_toBottomOf="@id/tv_expense"
-        />
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/tv_expense"
+        >
+
+        <EditText
+            android:id="@+id/et_expense_amount"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:inputType="number"
+            android:backgroundTint="@color/orange"
+            android:textCursorDrawable="@color/orange"
+            app:layout_constraintTop_toBottomOf="@id/tv_expense"
+            />
+
+        <Spinner
+            android:id="@+id/spinner_currencies"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_gravity="center_vertical"
+            >
+        </Spinner>
+    </LinearLayout>
 
     <EditText
         android:id="@+id/et_note"
@@ -40,7 +56,7 @@
         android:maxLines="1"
         android:backgroundTint="@color/orange"
         android:textCursorDrawable="@color/orange"
-        app:layout_constraintTop_toBottomOf="@id/et_expense_amount"
+        app:layout_constraintTop_toBottomOf="@id/ll_expense_and_currency"
         />
 
     <TextView

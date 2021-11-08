@@ -8,10 +8,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.moneymanager.data.InputDataBaseHelper;
@@ -25,6 +28,7 @@ public class IncomeFragment extends Fragment {
     InputDataBaseHelper dbHelper;
     Integer amount = 0;
     String category = "";
+    String currency = "";
     Integer date = d.getDate();
     Integer month = d.getMonth() + 1;
     Integer year = d.getYear() + 1900;
@@ -41,10 +45,13 @@ public class IncomeFragment extends Fragment {
         EditText amountField = view.findViewById(R.id.et_income_amount);
         RadioGroup categoryField = view.findViewById(R.id.rg_category);
         Button enterButton = view.findViewById(R.id.enter_button);
+        Spinner currSpinner = view.findViewById(R.id.spinner_currencies);
 
         getAmount(amountField);
 
         getCategoryChoice(categoryField, view);
+
+        setUpSpinner(currSpinner, amountField);
 
         enter(enterButton, amountField);
 
@@ -106,6 +113,30 @@ public class IncomeFragment extends Fragment {
             int id1 = categoryField.getCheckedRadioButtonId();
             RadioButton button1 = view.findViewById(id1);
             category = button1.getText().toString();
+        });
+    }
+
+    private void setUpSpinner(Spinner spinner, EditText editText){
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getContext(), R.array.currencies, android.R.layout.simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                currency = adapterView.getItemAtPosition(i).toString();
+//                Toast.makeText(ExpenseFragment.super.getContext(), currency, Toast.LENGTH_SHORT).show();
+                if(currency.equals("VND")){
+                    editText.setHint(R.string.amount_in_VND);
+                }
+                else {
+                    editText.setHint(R.string.amount_in_USD);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
         });
     }
 

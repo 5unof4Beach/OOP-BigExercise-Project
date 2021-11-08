@@ -21,7 +21,6 @@
             android:layout_height="wrap_content"
             android:text="Enter Expense"
             android:backgroundTint="@color/gray"
-            app:layout_constraintTop_toTopOf="parent"
             />
         <Button
             android:id="@+id/button_enter_income"
@@ -30,7 +29,6 @@
             android:layout_height="wrap_content"
             android:text="Enter Income"
             android:backgroundTint="@color/gray"
-            app:layout_constraintTop_toBottomOf="@+id/button_enter_expense"
             />
     </LinearLayout>
 
