@@ -12,13 +12,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.moneymanager.data.InputDataBaseHelper;
 import com.example.moneymanager.repositories.Input;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -38,6 +42,7 @@ public class SummaryFragment extends Fragment {
     private int date = 0;
     private int month = 0;
     private int year = 0;
+    String currency = "VND";
 
     @Nullable
     @Override
@@ -55,13 +60,13 @@ public class SummaryFragment extends Fragment {
         EditText etMonth = view.findViewById(R.id.et_summary_month);
         EditText etYear = view.findViewById(R.id.et_summary_year);
         Button enterButton = view.findViewById(R.id.button_summary_enter);
-
         pieChart = view.findViewById(R.id.pc_summary);
-
+        Spinner currSpinner = view.findViewById(R.id.spinner_currencies);
 
         getDate(etDate);
         getMonth(etMonth);
         getYear(etYear);
+        setUpSpinner(currSpinner);
         enter(enterButton, etDate, etMonth,etYear);
     }
 
@@ -72,6 +77,7 @@ public class SummaryFragment extends Fragment {
 
         int expense_val = 0;
         int income_val = 0;
+
         for(Input i:list){
             if(i.getType() == 1){
                 expense_val += i.getAmount();
@@ -95,9 +101,14 @@ public class SummaryFragment extends Fragment {
         colors.add(Color.rgb(26,102,255)); //Blue
         pieDataSet.setColors(colors);
 
+        Description description = new Description();
+        description.setText("Currency" + ": " + currency);
+
         PieData pieData = new PieData(pieDataSet);
         pieData.setValueTextColor(Color.WHITE);
+
         pieChart.setData(pieData);
+        pieChart.setDescription(description);
         pieChart.invalidate();
 
     }
@@ -106,15 +117,15 @@ public class SummaryFragment extends Fragment {
     private void show(RecyclerView rv, RecyclerView rv2){
         Vector<Input> expenses = new Vector<>();
         Vector<Input> incomes = new Vector<>();
-
         for(Input i :list){
             if(i.getType() == 1){
                 expenses.add(i);
             }
-            else {
+            else if(i.getType() == 2){
                 incomes.add(i);
             }
         }
+
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
         rv.setLayoutManager(layoutManager);
@@ -136,11 +147,12 @@ public class SummaryFragment extends Fragment {
             }
             else{
                 System.out.println(date + " " + month + " " + year);
-                list  = dbHelper.getMonthlyInput(date, month, year);
+                list  = dbHelper.getMonthlyInput(date, month, year, currency);
                 date = 0;
                 month = 0;
                 show(rv_input_Items, rv_income_Items);
                 addDataToPieChart();
+                pieChart.invalidate();
             }
         });
     }
@@ -184,6 +196,23 @@ public class SummaryFragment extends Fragment {
                 Log.v("Year",String.format("%d",year));
             }
 
+        });
+    }
+
+    private void setUpSpinner(Spinner spinner){
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getContext(), R.array.currencies, android.R.layout.simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                currency = adapterView.getItemAtPosition(i).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
         });
     }
 }

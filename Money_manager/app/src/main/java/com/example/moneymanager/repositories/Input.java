@@ -5,16 +5,18 @@ import java.io.Serializable;
 
 public class Input implements Serializable {
     private long amount, type, date, month, year;
-    private String note = "", category="";
+    private String note = "", category = "", currency = "";
 
-    public Input(int amount, String note, String category, int type) {
+    public Input(int amount, String currency, String note, String category, int type) {
         this.amount = amount;
+        this.currency = currency;
         this.note = note;
         this.category = category;
         this.type = type;
 
-    }public Input(int amount, String category, int type) {
+    }public Input(int amount, String currency, String category, int type) {
         this.amount = amount;
+        this.currency = currency;
         this.category = category;
         this.type = type;
     }
@@ -43,6 +45,10 @@ public class Input implements Serializable {
 
     public long getYear() {
         return year;
+    }
+
+    public String getCurrency() {
+        return currency;
     }
 
     public void setDate(long date) {

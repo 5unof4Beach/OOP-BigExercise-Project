@@ -32,6 +32,7 @@ public class IncomeFragment extends Fragment {
     Integer date = d.getDate();
     Integer month = d.getMonth() + 1;
     Integer year = d.getYear() + 1900;
+    int multiplier = 1000;
 
     @Nullable
     @Override
@@ -73,7 +74,7 @@ public class IncomeFragment extends Fragment {
         });
     }
     private void addToDB(){
-        dbHelper.addInput2(new Input(amount, category,2),date, month, year);
+        dbHelper.addInput2(new Input(amount * multiplier, currency, category,2),date, month, year);
     }
 
 
@@ -127,9 +128,11 @@ public class IncomeFragment extends Fragment {
 //                Toast.makeText(ExpenseFragment.super.getContext(), currency, Toast.LENGTH_SHORT).show();
                 if(currency.equals("VND")){
                     editText.setHint(R.string.amount_in_VND);
+                    multiplier = 1000;
                 }
                 else {
                     editText.setHint(R.string.amount_in_USD);
+                    multiplier = 1;
                 }
             }
 

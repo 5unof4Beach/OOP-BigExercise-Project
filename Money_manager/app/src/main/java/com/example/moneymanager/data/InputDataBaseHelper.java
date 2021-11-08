@@ -16,12 +16,13 @@ public class InputDataBaseHelper extends SQLiteOpenHelper {
     public static final String MONTH = "month";
     public static final String DAY = "day";
     public static final String AMOUNT  = "amount";
+    public static final String CURRENCY  = "currency";
     public static final String NOTE  = "note";
     public static final String CATEGORY  = "category";
     public static final String TYPE  = "type";
 
     public static final String DATABASE_NAME  = "input";
-    public static final int DATABASE_VERSION  = 4;
+    public static final int DATABASE_VERSION  = 5;
 
     public static String query = "";
 
@@ -33,7 +34,7 @@ public class InputDataBaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_TABLE  =
-        String.format("create table %s(%s int, %s int, %s int, %s int, %s text, %s text, %s int);",INPUT_TABLE,YEAR,MONTH,DAY,AMOUNT,NOTE,CATEGORY,TYPE);
+        String.format("create table %s(%s int, %s int, %s int, %s int, %s text, %s text, %s text, %s int);",INPUT_TABLE,YEAR,MONTH,DAY,AMOUNT,CURRENCY,NOTE,CATEGORY,TYPE);
         db.execSQL(CREATE_TABLE);
     }
 
@@ -51,6 +52,7 @@ public class InputDataBaseHelper extends SQLiteOpenHelper {
         values.put(YEAR, year);
         values.put(MONTH, month);
         values.put(AMOUNT, input.getAmount());
+        values.put(CURRENCY, input.getCurrency());
         values.put(NOTE,input.getNote());
         values.put(CATEGORY,input.getCategory());
         values.put(TYPE, input.getType());
@@ -59,11 +61,13 @@ public class InputDataBaseHelper extends SQLiteOpenHelper {
         db.insert(INPUT_TABLE,null,values);
         db.close();
     }
+
     public void setTimeForInput(Input input,Cursor cursor){
         input.setDate(cursor.getInt(2));
         input.setMonth(cursor.getInt(1));
         input.setYear(cursor.getInt(0));
     }
+
     public Vector<Input> getAllInput(int date, int month, int year){
         Vector<Input> inputs = new Vector<>();
 
@@ -72,7 +76,7 @@ public class InputDataBaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(query,null);
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
-            Input input = new Input(cursor.getInt(3),cursor.getString(4),cursor.getString(5),cursor.getInt(6));
+            Input input = new Input(cursor.getInt(3),cursor.getString(4),cursor.getString(5),cursor.getString(6),cursor.getInt(7));
             setTimeForInput(input, cursor);
             inputs.add(input);
             cursor.moveToNext();
@@ -82,16 +86,16 @@ public class InputDataBaseHelper extends SQLiteOpenHelper {
         return inputs;
     }
 
-    public Vector<Input> getMonthlyInput(int date, int month, int year){
+    public Vector<Input> getMonthlyInput(int date, int month, int year, String currency){
         Vector<Input> inputs = new Vector<>();
 
-        query = String.format("select * from %s where month = %d and year = %d",INPUT_TABLE,month,year);
+        query = String.format("select * from %s where month = %d and year = %d and currency = \"%s\" ",INPUT_TABLE,month,year,currency);
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query,null);
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
-            Input input = new Input(cursor.getInt(3),cursor.getString(4),cursor.getString(5),cursor.getInt(6));
+            Input input = new Input(cursor.getInt(3),cursor.getString(4),cursor.getString(5),cursor.getString(6),cursor.getInt(7));
             setTimeForInput(input, cursor);
             inputs.add(input);
             cursor.moveToNext();
@@ -101,6 +105,7 @@ public class InputDataBaseHelper extends SQLiteOpenHelper {
         return inputs;
     }
 
+    // for testing purpose only
     private void getQueryAndArgs(int date, int month, int year){
         query = String.format("select * from %s where month = %d and day = %d",INPUT_TABLE, month, date);
         if(month == 0 && date !=0){
@@ -117,9 +122,11 @@ public class InputDataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    // for testing purpose only
     private void getAllQuery(){
         query = String.format("select * from %s",INPUT_TABLE);
     }
+
     private void getDefaultQueryAndArgs(int date, int month, int year){
         query = String.format("select * from %s where month = %d and day = %d and year = %d",INPUT_TABLE,month,date,year);
     }
