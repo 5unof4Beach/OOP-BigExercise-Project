@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.moneymanager.data.InputDataBaseHelper;
 import com.example.moneymanager.repositories.Input;
 
+import java.util.Date;
 import java.util.Vector;
 
 public class ReportFragment extends Fragment {
@@ -24,9 +25,10 @@ public class ReportFragment extends Fragment {
 
     private RecyclerView rv_input_Items;
     Vector<Input> list = new Vector<>();
-    private int date = 0;
-    private int month = 0;
-    private int year = 0;
+    Date d = java.util.Calendar.getInstance().getTime();
+    private int date = d.getDate();;
+    private int month = d.getMonth() + 1;;
+    private int year = d.getYear() + 1900;;
 
     @Nullable
     @Override
@@ -71,12 +73,10 @@ public class ReportFragment extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void init(DatePicker datePicker){
-        date = datePicker.getDayOfMonth();
-        month = datePicker.getMonth()+1;
-        year = datePicker.getYear();
         list = dbHelper.getAllInput(date, month, year);
         list.sort(((input, t1) -> Long.compare(input.getType(),t1.getType())));
         show(rv_input_Items);
+        System.out.printf("called %d %d %d\n",date, month, year);
     }
 
     private void print(String s){

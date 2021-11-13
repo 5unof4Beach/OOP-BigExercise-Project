@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:text="Input"
             android:textSize="12dp"
-            android:backgroundTint="@color/gray"
+            android:backgroundTint="@color/bottom_three"
             />
         <Button
             android:id="@+id/button_summary_page"
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:text="Summary"
             android:textSize="12dp"
-            android:backgroundTint="@color/gray"
+            android:backgroundTint="@color/bottom_three"
             />
         <Button
             android:id="@+id/button_report_page"
@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:text="Report"
             android:textSize="12dp"
-            android:backgroundTint="@color/gray"
+            android:backgroundTint="@color/bottom_three"
             />
     </LinearLayout>
 

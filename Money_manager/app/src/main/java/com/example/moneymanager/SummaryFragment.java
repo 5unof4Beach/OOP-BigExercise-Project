@@ -61,6 +61,9 @@ public class SummaryFragment extends Fragment {
         rv_input_Items = view.findViewById(R.id.rv_expense_summary);
         rv_income_Items = view.findViewById(R.id.rv_income_summary);
         pieChart = view.findViewById(R.id.pc_summary);
+        show(rv_input_Items, rv_income_Items);
+        addDataToPieChart();
+
 
         EditText etDate = view.findViewById(R.id.et_summary_date);
         EditText etMonth = view.findViewById(R.id.et_summary_month);
