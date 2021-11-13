@@ -23,11 +23,15 @@ import com.example.moneymanager.data.InputDataBaseHelper;
 import com.example.moneymanager.repositories.Input;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.LegendEntry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Vector;
 
 public class SummaryFragment extends Fragment {
@@ -56,11 +60,12 @@ public class SummaryFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
         rv_input_Items = view.findViewById(R.id.rv_expense_summary);
         rv_income_Items = view.findViewById(R.id.rv_income_summary);
+        pieChart = view.findViewById(R.id.pc_summary);
+
         EditText etDate = view.findViewById(R.id.et_summary_date);
         EditText etMonth = view.findViewById(R.id.et_summary_month);
         EditText etYear = view.findViewById(R.id.et_summary_year);
         Button enterButton = view.findViewById(R.id.button_summary_enter);
-        pieChart = view.findViewById(R.id.pc_summary);
         Spinner currSpinner = view.findViewById(R.id.spinner_currencies);
 
         getDate(etDate);
@@ -68,102 +73,6 @@ public class SummaryFragment extends Fragment {
         getYear(etYear);
         setUpSpinner(currSpinner);
         enter(enterButton, etDate, etMonth,etYear);
-    }
-
-    private void addDataToPieChart() {
-        Vector<PieEntry> val_entry = new Vector<>();
-        Vector<String> name_entry = new Vector<>();
-        Vector<Integer> colors = new Vector<>();
-
-        int expense_val = 0;
-        int income_val = 0;
-
-        for(Input i:list){
-            if(i.getType() == 1){
-                expense_val += i.getAmount();
-            }
-            else {
-                income_val += i.getAmount();
-            }
-        }
-
-        val_entry.add(new PieEntry(expense_val,0));
-        val_entry.add(new PieEntry(income_val,1));
-
-        name_entry.add("Expense");
-        name_entry.add("Income");
-
-        PieDataSet pieDataSet = new PieDataSet(val_entry,"Expense and Income");
-        pieDataSet.setSliceSpace(2);
-        pieDataSet.setValueTextSize(10);
-
-        colors.add(Color.rgb(225,111,84)); // Orange
-        colors.add(Color.rgb(26,102,255)); //Blue
-        pieDataSet.setColors(colors);
-
-        Description description = new Description();
-        description.setText("Currency" + ": " + currency);
-
-        PieData pieData = new PieData(pieDataSet);
-        pieData.setValueTextColor(Color.WHITE);
-
-        pieChart.setData(pieData);
-        pieChart.setDescription(description);
-        pieChart.invalidate();
-
-    }
-
-
-    private void show(RecyclerView rv, RecyclerView rv2){
-        Vector<Input> expenses = new Vector<>();
-        Vector<Input> incomes = new Vector<>();
-        for(Input i :list){
-            if(i.getType() == 1){
-                expenses.add(i);
-            }
-            else if(i.getType() == 2){
-                incomes.add(i);
-            }
-        }
-
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
-        rv.setLayoutManager(layoutManager);
-        rv.hasFixedSize();
-        rv.setAdapter(new SummaryAdapter(expenses, this.getContext()));
-
-        LinearLayoutManager layoutManager2 = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
-        rv2.setLayoutManager(layoutManager2);
-        rv2.hasFixedSize();
-        rv2.setAdapter(new SummaryAdapter(incomes, this.getContext()));
-    }
-
-    private void enter(Button button,EditText et_date, EditText et_month, EditText et_year){
-        button.setOnClickListener(view -> {
-            clearAllFocus(et_date, et_month, et_year);
-            if(month == 0 || year == 0 || month >12 || year > d.getYear() + 1900){
-                Toast.makeText(super.getContext(), "Please enter valid date and month", Toast.LENGTH_SHORT).show();
-                System.out.println(month + " " + year);
-            }
-            else{
-                System.out.println(date + " " + month + " " + year);
-                list  = dbHelper.getMonthlyInput(date, month, year, currency);
-                date = 0;
-                month = 0;
-                show(rv_input_Items, rv_income_Items);
-                addDataToPieChart();
-                pieChart.invalidate();
-            }
-        });
-    }
-
-    private void clearAllFocus(EditText date, EditText month, EditText year){
-        date.clearFocus();
-        date.setText("");
-        month.clearFocus();
-        month.setText("");
-        year.clearFocus();
-        year.setText("");
     }
 
     private void getDate(EditText et){
@@ -199,8 +108,104 @@ public class SummaryFragment extends Fragment {
         });
     }
 
+    private void enter(Button button,EditText et_date, EditText et_month, EditText et_year){
+        button.setOnClickListener(view -> {
+            clearAllFocus(et_date, et_month, et_year);
+            if(month == 0 || year == 0 || month >12 || year > d.getYear() + 1900){
+                Toast.makeText(super.getContext(), "Please enter valid date and month", Toast.LENGTH_SHORT).show();
+                System.out.println(month + " " + year);
+            }
+            else{
+                System.out.println(date + " " + month + " " + year);
+                list  = dbHelper.getMonthlyInput(date, month, year, currency);
+                date = 0;
+                month = 0;
+                show(rv_input_Items, rv_income_Items);
+                addDataToPieChart();
+            }
+        });
+    }
+
+    private void addDataToPieChart() {
+        Vector<PieEntry> val_entry = new Vector<>();
+        List<LegendEntry> name_entry = new ArrayList<>();
+        Vector<Integer> colors = new Vector<>();
+
+        int expense_val = 0;
+        int income_val = 0;
+
+        for(Input i:list){
+            if(i.getType() == 1){
+                expense_val += i.getAmount();
+            }
+            else {
+                income_val += i.getAmount();
+            }
+        }
+
+        val_entry.add(new PieEntry(expense_val,0));
+        val_entry.add(new PieEntry(income_val,1));
+
+        PieDataSet pieDataSet = new PieDataSet(val_entry,"Expense and Income");
+        pieDataSet.setSliceSpace(2);
+        pieDataSet.setValueTextSize(10);
+
+        colors.add(Color.rgb(225,111,84)); // Orange
+        colors.add(Color.rgb(26,102,255)); //Blue
+        pieDataSet.setColors(colors);
+
+        Description description = new Description();
+        description.setText("Currency: " + currency);
+
+        PieData pieData = new PieData(pieDataSet);
+        pieData.setValueTextColor(Color.WHITE);
+
+        pieChart.setData(pieData);
+        pieChart.setDescription(description);
+        pieChart.invalidate();
+
+    }
+
+
+    private void show(RecyclerView rv, RecyclerView rv2){
+        Vector<Input> expenses = new Vector<>();
+        Vector<Input> incomes = new Vector<>();
+        for(Input i :list){
+            if(i.getType() == 1){
+                expenses.add(i);
+            }
+            else if(i.getType() == 2){
+                incomes.add(i);
+            }
+        }
+
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
+        rv.setLayoutManager(layoutManager);
+        rv.hasFixedSize();
+        rv.setAdapter(new SummaryAdapter(expenses, this.getContext()));
+
+        LinearLayoutManager layoutManager2 = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
+        rv2.setLayoutManager(layoutManager2);
+        rv2.hasFixedSize();
+        rv2.setAdapter(new SummaryAdapter(incomes, this.getContext()));
+    }
+
+
+    private void clearAllFocus(EditText date, EditText month, EditText year){
+        date.clearFocus();
+        date.setText("");
+        month.clearFocus();
+        month.setText("");
+        year.clearFocus();
+        year.setText("");
+    }
+
+
     private void setUpSpinner(Spinner spinner){
+        spinner.setPrompt("Currency");
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getContext(), R.array.currencies, android.R.layout.simple_spinner_dropdown_item);
+//        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

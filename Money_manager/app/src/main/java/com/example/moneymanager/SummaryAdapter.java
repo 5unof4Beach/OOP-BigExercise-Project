@@ -40,17 +40,17 @@ public class SummaryAdapter extends RecyclerView.Adapter<SummaryAdapter.DataView
     @Override
     public void onBindViewHolder(@NonNull SummaryAdapter.DataViewHolder holder, int position) {
         Input temp = list.get(position);
-        String show = String.format("%s\n %d %s\n %s\n %d/%d/%d", temp.getCategory(), temp.getAmount(), temp.getCurrency(), temp.getNote(), temp.getDate(), temp.getMonth(),temp.getYear());
+        String show = String.format("%s\n %d %s\n %s\n %d/%d/%d",
+                temp.getCategory(),
+                temp.getAmount(), temp.getCurrency(),
+                temp.getNote(),
+                temp.getDate(), temp.getMonth(), temp.getYear());
         holder.tvName.setText(show);
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (list.get(position).getType() == 1) {
-            return 1;
-        } else {
-            return 2;
-        }
+        return (int) list.get(position).getType();
     }
 
     @Override

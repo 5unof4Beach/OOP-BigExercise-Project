@@ -15,9 +15,10 @@
         <entry key="..\:/OOP_Project/Money_manager/app/src/main/res/layout/fragment_input_screen.xml" value="0.264" />
         <entry key="..\:/OOP_Project/Money_manager/app/src/main/res/layout/fragment_item_list.xml" value="0.17300724637681159" />
         <entry key="..\:/OOP_Project/Money_manager/app/src/main/res/layout/fragment_report.xml" value="0.264" />
-        <entry key="..\:/OOP_Project/Money_manager/app/src/main/res/layout/fragment_summary.xml" value="0.264" />
+        <entry key="..\:/OOP_Project/Money_manager/app/src/main/res/layout/fragment_summary.xml" value="0.1" />
         <entry key="..\:/OOP_Project/Money_manager/app/src/main/res/layout/income_input_screen.xml" value="0.264" />
         <entry key="..\:/OOP_Project/Money_manager/app/src/main/res/layout/item_name.xml" value="0.17300724637681159" />
+        <entry key="..\:/OOP_Project/Money_manager/app/src/main/res/layout/spinner_item.xml" value="0.1111111111111111" />
         <entry key="..\:/OOP_Project/Money_manager/app/src/main/res/layout/summary_rv_expense_item_name.xml" value="0.1" />
         <entry key="..\:/OOP_Project/Money_manager/app/src/main/res/layout/summary_rv_income_item_name.xml" value="0.1" />
         <entry key="..\:/OOP_Project/Money_manager/app/src/main/res/layout/summary_rv_item_name.xml" value="0.1" />

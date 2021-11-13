@@ -17,6 +17,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
         android:id="@+id/ll_expense_and_currency"
         android:layout_width="match_parent"
