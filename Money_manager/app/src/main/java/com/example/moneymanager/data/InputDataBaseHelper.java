@@ -44,7 +44,7 @@ public class InputDataBaseHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
-    public void addInput2(Input input,int date, int month, int year){
+    public void addInput(Input input,int date, int month, int year){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();

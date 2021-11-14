@@ -74,7 +74,7 @@ public class IncomeFragment extends Fragment {
         });
     }
     private void addToDB(){
-        dbHelper.addInput2(new Input(amount * multiplier, currency, category,2),date, month, year);
+        dbHelper.addInput(new Input(amount * multiplier, currency, category,2),date, month, year);
     }
 
 

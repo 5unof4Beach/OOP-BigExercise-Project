@@ -58,24 +58,24 @@ public class ReportFragment extends Fragment {
                 year = datePicker.getYear();
                 list = dbHelper.getAllInput(date, month, year);
                 list.sort(((input, t1) -> Long.compare(input.getType(),t1.getType())));
-                show(rv_input_Items);
+                show();
                 print(String.format("%d/%d/%d",date,month,year));
             }
         });
     }
 
-    private void show(RecyclerView rv){
+    private void show(){
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
-        rv.setLayoutManager(layoutManager);
-        rv.hasFixedSize();
-        rv.setAdapter(new SummaryAdapter(list, this.getContext()));
+        rv_input_Items.setLayoutManager(layoutManager);
+        rv_input_Items.hasFixedSize();
+        rv_input_Items.setAdapter(new SummaryAdapter(list, this.getContext()));
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void init(DatePicker datePicker){
         list = dbHelper.getAllInput(date, month, year);
         list.sort(((input, t1) -> Long.compare(input.getType(),t1.getType())));
-        show(rv_input_Items);
+        show();
         System.out.printf("called %d %d %d\n",date, month, year);
     }
 

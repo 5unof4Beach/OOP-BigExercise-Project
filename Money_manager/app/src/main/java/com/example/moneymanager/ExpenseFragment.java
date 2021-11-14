@@ -80,7 +80,7 @@ public class ExpenseFragment extends Fragment{
 
 
     private void addToDB(){
-        dbHelper.addInput2(new Input(amount * multiplier, currency, note, category,1),date, month, year);
+        dbHelper.addInput(new Input(amount * multiplier, currency, note, category,1),date, month, year);
     }
 
 
