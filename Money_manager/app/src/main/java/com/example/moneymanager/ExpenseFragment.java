@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -100,12 +101,20 @@ public class ExpenseFragment extends Fragment{
         et.setOnFocusChangeListener((view, b) -> {
             String temp = et.getText().toString();
             if(!temp.equals("")){
-                amount = Integer.parseInt(temp);
+                try {
+                    amount = Integer.parseInt(temp);
+                    Log.v("amount","added");
+                }
+                catch (NumberFormatException e){
+                    Toast.makeText(ExpenseFragment.super.getContext(), "Please ReEnter Amount", Toast.LENGTH_SHORT).show();
+                }
             }
 
         });
     }
 
+    //testing purpose only
+    /*
     private void getDate(EditText et){
         et.setOnFocusChangeListener((view, b) -> {
             String temp = et.getText().toString();
@@ -125,7 +134,7 @@ public class ExpenseFragment extends Fragment{
 
         });
     }
-
+    */
     private void getNote(EditText et){
         et.setOnFocusChangeListener((view, b) -> note = et.getText().toString());
     }
@@ -149,7 +158,7 @@ public class ExpenseFragment extends Fragment{
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 currency = adapterView.getItemAtPosition(i).toString();
-//                Toast.makeText(ExpenseFragment.super.getContext(), currency, Toast.LENGTH_SHORT).show();
+                Toast.makeText(ExpenseFragment.super.getContext(), currency, Toast.LENGTH_SHORT).show();
                 if(currency.equals("VND")){
                     editText.setHint(R.string.amount_in_VND);
                     multiplier = 1000;
